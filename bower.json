@@ -1,0 +1,10 @@
+{
+  "name": "DCN CMS",
+  "dependencies": {
+    "bootstrap": "~3.3.4",
+    "admin-lte": "~2.1.1",
+    "jquery-ui": "~1.11.4",
+    "components-font-awesome": "~4.3.0",
+    "ionicons": "~2.0.1"
+  }
+}
