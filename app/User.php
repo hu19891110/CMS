@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace DCN;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -31,7 +31,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password', 'remember_token', 'otc', 'otc_ts'];
 
 
     /**
@@ -52,6 +52,41 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function setNameMiddleAttribute($middle)
     {
         $this->attributes['name_middle'] = $middle ? $middle : null;
+    }
+
+    /**
+     * Create a One Time Code and set the TS for the code
+     * @param bool $save
+     */
+    public function createOTC($save=true)
+    {
+        $this->otc=str_random(40);
+        $this->otc_ts = Carbon::now();
+        if($save)
+        {
+            $this->save();
+        }
+    }
+
+    /**
+     * Check if the inputted code is the code we have on record.
+     * @param $otc
+     * @param bool $reset
+     * @return bool
+     */
+    public function checkOTC($otc, $reset=true)
+    {
+        if($this->otc === $otc)
+        {
+            if($reset)
+            {
+                $this->otc=null;
+                $this->otc_tc = null;
+                $this->save();
+            }
+            return true;
+        }
+        return false;
     }
 
 }

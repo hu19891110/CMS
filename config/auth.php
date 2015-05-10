@@ -28,7 +28,7 @@ return [
 	|
 	*/
 
-	'model' => 'App\User',
+	'model' => 'DCN\User',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -59,7 +59,7 @@ return [
 	*/
 
 	'password' => [
-		'email' => 'emails.password',
+		'email' => 'emails.password-reset',
 		'table' => 'password_resets',
 		'expire' => 60,
 	],

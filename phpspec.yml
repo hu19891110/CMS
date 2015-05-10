@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: App
-        psr4_prefix: App
+        namespace: DCN
+        psr4_prefix: DCN
         src_path: app
