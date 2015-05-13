@@ -112,7 +112,7 @@ Route::get('/frontend', function(){
     return view('frontend');
 });
 Route::get('/backend', function(){
-    return view('backend/user/_partials/alerts/user-unbanned');
+    return view('backend');
 });
 Route::get('/portal', function(){
     return view('portal');
@@ -121,11 +121,9 @@ Route::get('/portal', function(){
 Blade::extend(function($view, $compiler)
 {
     $pattern = $compiler->createMatcher('oneLine');
-
     return preg_replace_callback($pattern, function($matches)
     {
         $param = trim(trim($matches[2], '(\'\')'));
-        //dd(implode(" ",explode("\n",View::make($param)->render())));
         return implode(" ",explode("\n",View::make($param)->render()));
     }, $view);
 });

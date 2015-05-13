@@ -1,7 +1,7 @@
 <?php
 /**
  * An helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.0.16 on 2015-05-10.
+ * Generated for Laravel 5.0.16 on 2015-05-13.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -805,7 +805,7 @@ namespace {
          */
         public static function handle($input, $output = null){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \App\Console\Kernel::handle($input, $output);
+            return \DCN\Console\Kernel::handle($input, $output);
         }
         
         /**
@@ -818,7 +818,7 @@ namespace {
          */
         public static function terminate($input, $status){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \App\Console\Kernel::terminate($input, $status);
+            \DCN\Console\Kernel::terminate($input, $status);
         }
         
         /**
@@ -831,7 +831,7 @@ namespace {
          */
         public static function call($command, $parameters = array()){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \App\Console\Kernel::call($command, $parameters);
+            return \DCN\Console\Kernel::call($command, $parameters);
         }
         
         /**
@@ -844,7 +844,7 @@ namespace {
          */
         public static function queue($command, $parameters = array()){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \App\Console\Kernel::queue($command, $parameters);
+            \DCN\Console\Kernel::queue($command, $parameters);
         }
         
         /**
@@ -855,7 +855,7 @@ namespace {
          */
         public static function all(){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \App\Console\Kernel::all();
+            return \DCN\Console\Kernel::all();
         }
         
         /**
@@ -866,7 +866,7 @@ namespace {
          */
         public static function output(){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            return \App\Console\Kernel::output();
+            return \DCN\Console\Kernel::output();
         }
         
         /**
@@ -877,7 +877,7 @@ namespace {
          */
         public static function bootstrap(){
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \App\Console\Kernel::bootstrap();
+            \DCN\Console\Kernel::bootstrap();
         }
         
     }

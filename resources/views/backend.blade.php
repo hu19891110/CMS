@@ -117,7 +117,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         @include('backend._partials.errors')
                     </div>
                 </div>
-                @yield('content')
+                @yield('content',"")
             </section><!-- /.content -->
         </div><!-- /.content-wrapper -->
 
@@ -199,6 +199,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- REQUIRED JS SCRIPTS -->
     {!! HTML::script( asset('js/backend.js') ) !!}
-    @yield('javascript')
+    @yield('javascript','')
 </body>
 </html>
