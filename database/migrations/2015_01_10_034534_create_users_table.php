@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration {
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
+            $table->enum('status',['registered','active','locked','banned'])->default('registered');
+            $table->timestamp('status_ts')->nullable();
             $table->string('otc')->unique()->nullable();
             $table->timestamp('otc_ts')->nullable();
             $table->rememberToken();

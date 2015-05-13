@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta charset="UTF-8">
     <title>DCN - CMS</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     {!! HTML::style( asset('css/backend.css') ) !!}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -24,7 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="/" class="logo">
+            <a href="{{URL::route('admin.dashboard')}}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>D</b>C</span>
                 <!-- logo for regular state and mobile devices -->
@@ -42,20 +42,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="nav navbar-nav">
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
-                            @include('backend.messages-dropdown')
+                            @include('backend._partials.messages-dropdown')
                         </li><!-- /.messages-menu -->
 
                         <!-- Notifications Menu -->
                         <li class="dropdown notifications-menu">
-                            @include('backend.notifications-dropdown')
+                            @include('backend._partials.notifications-dropdown')
                         </li>
                         <!-- Tasks Menu -->
                         <li class="dropdown tasks-menu">
-                            @include('backend.tasks-dropdown')
+                            @include('backend._partials.tasks-dropdown')
                         </li>
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
-                            @include('backend.user-dropdown')
+                            @include('backend._partials.user-dropdown')
                         </li>
                         <!-- Control Sidebar Toggle Button -->
                         <li>
@@ -73,7 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel">
-                    @include('backend.user-panel')
+                    @include('backend._partials.user-panel')
                 </div>
                 <!-- /.Sidebar user panel -->
 
@@ -90,7 +90,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu">
-                    @include('backend.navigation')
+                    @include('backend._partials.navigation')
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>
@@ -112,9 +112,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!-- Main content -->
             <section class="content">
-
+                <div class="row">
+                    <div class="col-lg-12" id="alert-area">
+                        @include('backend._partials.errors')
+                    </div>
+                </div>
                 @yield('content')
-
             </section><!-- /.content -->
         </div><!-- /.content-wrapper -->
 
@@ -196,5 +199,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- REQUIRED JS SCRIPTS -->
     {!! HTML::script( asset('js/backend.js') ) !!}
+    @yield('javascript')
 </body>
 </html>

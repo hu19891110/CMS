@@ -1,5 +1,6 @@
 <?php namespace DCN;
 
+use Hash;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -7,10 +8,11 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Bican\Roles\Contracts\HasRoleAndPermissionContract;
 use Bican\Roles\Traits\HasRoleAndPermission;
+use \Venturecraft\Revisionable\RevisionableTrait;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasRoleAndPermissionContract {
 
-	use Authenticatable, CanResetPassword, HasRoleAndPermission;
+	use Authenticatable, CanResetPassword, HasRoleAndPermission, RevisionableTrait;
 
 	/**
 	 * The database table used by the model.
@@ -24,7 +26,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['name_first', 'name_middle', 'name_last', 'username', 'email', 'password'];
+    protected $fillable = ['name_first', 'name_middle', 'name_last', 'username', 'email', 'password','status'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -33,6 +35,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password', 'remember_token', 'otc', 'otc_ts'];
 
+    /**
+     * The attributes excluded from revision
+     *
+     * @var array
+     */
+    protected $dontKeepRevisionOf = ['remember_token', 'otc', 'otc_ts'];
 
     /**
      * Generate the hash for the new password
@@ -41,7 +49,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function setPasswordAttribute($password)
     {
-        $this->attributes['password'] = bcrypt($password);
+        if (Hash::needsRehash($password))
+        {
+            $password = Hash::make($password);
+            $this->attributes['password'] = $password;
+        }
     }
 
     /**
@@ -52,6 +64,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function setNameMiddleAttribute($middle)
     {
         $this->attributes['name_middle'] = $middle ? $middle : null;
+    }
+
+    public function getNameFullAttribute()
+    {
+        return $this->attributes['name_first']." ".$this->attributes['name_middle']." ".$this->attributes['name_last'];
     }
 
     /**

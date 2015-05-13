@@ -1,0 +1,9 @@
+<html>
+    <head>
+        <title>@yield('title','Frontend')</title>
+    </head>
+    <body>
+        @include('frontend.partials.errors')
+        @yield('content','Content')
+    </body>
+</html>
