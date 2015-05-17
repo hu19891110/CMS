@@ -40,7 +40,8 @@ class UserRequest extends Request
                     'password'=>[ 'required' ],
                     'password_confirmation'=>[ 'required_with:password' ],
                     'status'=>['in:registered,active,locked,banned'],
-                    'status_ts'=>['date']
+                    'status_ts'=>['required_if:status,locked','date','after:now'],
+                    'roles'=>['array'],
                 ];
             }
             case 'PUT':
@@ -52,7 +53,8 @@ class UserRequest extends Request
                     'email'=>['min:5', 'unique:users,email,'.$this->route()->user->id ],
                     'password_confirmation'=>[ 'required_with:password' ],
                     'status'=>['in:registered,active,locked,banned'],
-                    'status_ts'=>['date']
+                    'status_ts'=>['required_if:status,locked','date','after:now'],
+                    'roles'=>['array']
                 ];
             }
             case 'PATCH':
@@ -64,7 +66,8 @@ class UserRequest extends Request
                     'email'=>[ 'required', 'min:5', 'unique:users,email,'.$this->route()->user->id ],
                     'password_confirmation'=>[ 'required_with:password' ],
                     'status'=>['in:registered,active,locked,banned'],
-                    'status_ts'=>['date']
+                    'status_ts'=>['required_if:status,locked','date','after:now'],
+                    'roles'=>['array']
                 ];
             }
             default:break;

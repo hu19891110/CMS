@@ -8,11 +8,12 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Bican\Roles\Contracts\HasRoleAndPermissionContract;
 use Bican\Roles\Traits\HasRoleAndPermission;
-use \Venturecraft\Revisionable\RevisionableTrait;
+use Venturecraft\Revisionable\RevisionableTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasRoleAndPermissionContract {
 
-	use Authenticatable, CanResetPassword, HasRoleAndPermission, RevisionableTrait;
+	use Authenticatable, CanResetPassword, HasRoleAndPermission, RevisionableTrait, SoftDeletes;
 
 	/**
 	 * The database table used by the model.
@@ -26,7 +27,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['name_first', 'name_middle', 'name_last', 'username', 'email', 'password','status'];
+    protected $fillable = ['name_first', 'name_middle', 'name_last', 'username', 'email', 'password','status','status_ts'];
 
     /**
      * The attributes excluded from the model's JSON form.

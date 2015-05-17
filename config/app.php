@@ -145,6 +145,7 @@ return [
         'Bican\Roles\RolesServiceProvider',
         'Cviebrock\EloquentSluggable\SluggableServiceProvider',
         'Baum\Providers\BaumServiceProvider',
+        'HieuLe\Active\ActiveServiceProvider',
 
 
 		/*
@@ -210,6 +211,7 @@ return [
         'Debugbar' => 'Barryvdh\Debugbar\Facade',
         'Form'=> 'Illuminate\Html\FormFacade',
         'HTML'=> 'Illuminate\Html\HtmlFacade',
+        'Active' => 'HieuLe\Active\Facades\Active',
 
         /*
 		 * Application Aliases...

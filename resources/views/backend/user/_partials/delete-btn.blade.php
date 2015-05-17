@@ -18,7 +18,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger">Delete User</button>
+                <button type="button" class="btn btn-danger" onclick="javascript:deleteUser({{$user->id}})">Delete User</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

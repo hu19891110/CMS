@@ -21,6 +21,7 @@ Route::group(['namespace'=>'Api','prefix'=>'api'], function(){
      * User Resource API
      */
     Route::resource('user','ApiUserController');
+    Route::resource('role','ApiRoleController');
 });
 
 /*
@@ -72,34 +73,47 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'], function() {
      */
     Route::group(['prefix'=>'users'], function() {
 
-        /*
-         * Index
-         *
-         * Displays Most Recent User Activity & Stats
-         */
         Route::get('/', [
             'uses'=>'UserController@getIndex',
             'as'=>'admin.users'
         ]);
 
-        /*
-         * List
-         *
-         * Displays A list of all users
-         */
+        Route::get('/create', [
+            'uses'=>'UserController@getCreate',
+            'as'=>'admin.users.create'
+        ]);
+
         Route::get('/list', [
             'uses'=>'UserController@getList',
             'as'=>'admin.users.list'
         ]);
 
-        /*
-         * Edit
-         *
-         * Displays A list of all users
-         */
         Route::get('/edit/{user}', [
             'uses'=>'UserController@getEdit',
             'as'=>'admin.users.edit'
+        ]);
+    });
+    /*
+     * Admin - Roles Routes
+     */
+    Route::group(['prefix'=>'roles'], function() {
+
+        Route::get('/', [
+            'uses'=>'RoleController@getIndex',
+            'as'=>'admin.roles'
+        ]);
+        Route::get('/create', [
+            'uses'=>'RoleController@getCreate',
+            'as'=>'admin.roles.create'
+        ]);
+        Route::get('/list', [
+            'uses'=>'RoleController@getList',
+            'as'=>'admin.roles.list'
+        ]);
+
+        Route::get('/edit/{role}', [
+            'uses'=>'RoleController@getEdit',
+            'as'=>'admin.roles.edit'
         ]);
     });
 });
@@ -107,23 +121,22 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'], function() {
 /*
  * Layout Routes
  */
+Blade::extend(function($view, $compiler) {
+    $pattern = $compiler->createMatcher('oneLine');
+    $replace = "<?php echo implode(\" \",explode(\"\n\",\$__env->make($2, array_except(get_defined_vars(), array('__data', '__path')))->render())); ?>";
+    return preg_replace($pattern, $replace, $view);
+});
+
 
 Route::get('/frontend', function(){
     return view('frontend');
+});
+Route::get('/guest-only',function(){
+    return view('frontend',['content'=>'<h1>Sorry Guests Only!'],['content'=>'<h1>Sorry Guests Only!']);
 });
 Route::get('/backend', function(){
     return view('backend');
 });
 Route::get('/portal', function(){
     return view('portal');
-});
-
-Blade::extend(function($view, $compiler)
-{
-    $pattern = $compiler->createMatcher('oneLine');
-    return preg_replace_callback($pattern, function($matches)
-    {
-        $param = trim(trim($matches[2], '(\'\')'));
-        return implode(" ",explode("\n",View::make($param)->render()));
-    }, $view);
 });

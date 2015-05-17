@@ -16,7 +16,7 @@
                 </thead>
                 <tbody id="user-table">
                     @foreach($users as $user)
-                        <tr>
+                        <tr id="User-{{$user->id}}-tr">
                             <td>{{$user->id}}</td>
                             <td id="User-NameFull-{{$user->id}}">{{$user->name_full}}</td>
                             <td id="User-Email-{{$user->id}}">{{$user->email}}</td>
@@ -50,18 +50,19 @@
             </ul>
         </div>
     </div>
-@endsection
+@stop
 @section('javascript')
     <script type="text/javascript">
         $(function () {
             $('.datetimepicker').datetimepicker({
+                format: "YYYY-MM-DD hh:mm:ss",
                 sideBySide: true,
                 showTodayButton: true,
                 inline:true,
-                toolbarPlacement:'top'
             });
         });
     </script>
     @include('backend.user._partials.lock-js')
     @include('backend.user._partials.ban-js')
-@endsection
+    @include('backend.user._partials.delete-js')
+@stop

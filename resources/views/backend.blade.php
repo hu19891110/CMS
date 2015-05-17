@@ -199,6 +199,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- REQUIRED JS SCRIPTS -->
     {!! HTML::script( asset('js/backend.js') ) !!}
-    @yield('javascript','')
+    @yield('javascript')
+    <script>
+        function errorJson(json)
+        {
+            $.each(json.responseJSON, function(key, value){
+                var str = '@oneLine('backend._partials.jsonError')';
+                $('#alert-area').append(str) ;
+            });
+        }
+        $( document ).ready()
+        {
+            $('#alert-area').bind('DOMNodeInserted', function(event) {
+                setTimeout(function() {
+                    $(".autoClose").fadeOut(1000);
+                },3000);
+
+            });
+        }
+
+    </script>
 </body>
 </html>
