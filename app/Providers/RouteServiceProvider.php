@@ -26,6 +26,22 @@ class RouteServiceProvider extends ServiceProvider {
 
         $router->model('user','DCN\User');
         $router->model('role','DCN\Role');
+        $router->model('page','DCN\Page');
+        $router->bind('pageUrl', function($value, $route)
+        {
+            if($value == "/"){ $value = "home"; };
+            $explodedPage = explode("/",$value);
+            $page = \DCN\Page::findBySlug(last($explodedPage));
+            if(!isset($page)){
+                \App::abort(404);
+            }
+            if($page->getURLAttribute()==$value){
+                return $page;
+            }else{
+                return $page;
+                //TODO: Redirect to proper URL
+            }
+        });
 	}
 
 	/**

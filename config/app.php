@@ -201,7 +201,6 @@ return [
 		'Schema'    => 'Illuminate\Support\Facades\Schema',
 		'Session'   => 'Illuminate\Support\Facades\Session',
 		'Storage'   => 'Illuminate\Support\Facades\Storage',
-		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 
@@ -216,6 +215,8 @@ return [
         /*
 		 * Application Aliases...
 		 */
+        'URL'       => 'DCN\Facades\URL',
+        'Page'       => 'DCN\Facades\Page',
 
 	],
 

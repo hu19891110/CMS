@@ -25,6 +25,7 @@ module.exports = function(grunt) {
             js_frontend: {
                 src: [
                     '<%= paths.assets.vendor %>jquery/dist/jquery.js',
+                    '<%= paths.assets.vendor %>/jquery-ui/jquery-ui.js',
                     '<%= paths.assets.vendor %>bootstrap/dist/js/bootstrap.js',
                     '<%= paths.assets.js_includes %>frontend.js'
                 ],
@@ -33,6 +34,7 @@ module.exports = function(grunt) {
             js_portal: {
                 src: [
                     '<%= paths.assets.vendor %>jquery/dist/jquery.js',
+                    '<%= paths.assets.vendor %>/jquery-ui/jquery-ui.js',
                     '<%= paths.assets.vendor %>bootstrap/dist/js/bootstrap.js',
                     '<%= paths.assets.js_includes %>portal.js'
                 ],
@@ -41,6 +43,7 @@ module.exports = function(grunt) {
             js_backend: {
                 src: [
                     '<%= paths.assets.vendor %>jquery/dist/jquery.js',
+                    '<%= paths.assets.vendor %>/jquery-ui/jquery-ui.js',
                     '<%= paths.assets.vendor %>bootstrap/dist/js/bootstrap.js',
                     '<%= paths.assets.js_includes %>backend.js'
                 ],

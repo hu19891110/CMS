@@ -1,5 +1,5 @@
--- Bootstrap JQuery
-@require ../vendor/bootstrap/js/*.js
+-- JQuery Plugins
 
 -- Application JS
+
 @require frontend.js

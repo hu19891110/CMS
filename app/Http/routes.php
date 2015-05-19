@@ -11,8 +11,6 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
-
 /*
  * API Routes
  */
@@ -22,6 +20,12 @@ Route::group(['namespace'=>'Api','prefix'=>'api'], function(){
      */
     Route::resource('user','ApiUserController');
     Route::resource('role','ApiRoleController');
+    Route::resource('page','ApiPageController');
+
+    Route::get('/autocomplete/{type}', [
+        'uses'=>'AutocompleteController@getResults',
+        'as'=>'api.autocomplete'
+    ]);
 });
 
 /*
@@ -116,6 +120,33 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'], function() {
             'as'=>'admin.roles.edit'
         ]);
     });
+    /*
+     * Admin - Page Routes
+     */
+    Route::group(['prefix'=>'pages'], function() {
+
+        Route::get('/', [
+            'uses'=>'PageController@getIndex',
+            'as'=>'admin.pages'
+        ]);
+        Route::get('/create', [
+            'uses'=>'PageController@getCreate',
+            'as'=>'admin.pages.create'
+        ]);
+        Route::get('/list', [
+            'uses'=>'PageController@getList',
+            'as'=>'admin.pages.list'
+        ]);
+
+        Route::get('/edit/{page}', [
+            'uses'=>'PageController@getEdit',
+            'as'=>'admin.pages.edit'
+        ]);
+        Route::get('/edit/{page}/inline', [
+            'uses'=>'PageController@getEditInline',
+            'as'=>'admin.pages.edit.inline'
+        ]);
+    });
 });
 
 /*
@@ -127,12 +158,12 @@ Blade::extend(function($view, $compiler) {
     return preg_replace($pattern, $replace, $view);
 });
 
-
 Route::get('/frontend', function(){
-    return view('frontend');
+    $pages = \DCN\Page::all();
+    return view('frontend',compact('pages'));
 });
 Route::get('/guest-only',function(){
-    return view('frontend',['content'=>'<h1>Sorry Guests Only!'],['content'=>'<h1>Sorry Guests Only!']);
+    return view('frontend',['content'=>'<h1>Sorry Guests Only!</h1>']);
 });
 Route::get('/backend', function(){
     return view('backend');
@@ -140,3 +171,20 @@ Route::get('/backend', function(){
 Route::get('/portal', function(){
     return view('portal');
 });
+Route::get('/editor', function(){
+    return view('editor');
+});
+Route::get('/example', function(){
+    return \Illuminate\Support\Facades\Response::json(['id'=>"OK"]);
+});
+
+
+/*
+ * Page Routes
+ *
+ * Ensure This is always the last active route!
+ */
+Route::get('{pageUrl?}', [
+    'uses'=>'PageController@getPage',
+    'as'=>'page'
+])->where('pageUrl', '(.*)?');

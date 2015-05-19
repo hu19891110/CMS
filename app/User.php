@@ -10,10 +10,11 @@ use Bican\Roles\Contracts\HasRoleAndPermissionContract;
 use Bican\Roles\Traits\HasRoleAndPermission;
 use Venturecraft\Revisionable\RevisionableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasRoleAndPermissionContract {
 
-	use Authenticatable, CanResetPassword, HasRoleAndPermission, RevisionableTrait, SoftDeletes;
+	use Authenticatable, CanResetPassword, HasRoleAndPermission, RevisionableTrait, SoftDeletes, SearchableTrait;
 
 	/**
 	 * The database table used by the model.
@@ -42,6 +43,21 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $dontKeepRevisionOf = ['remember_token', 'otc', 'otc_ts'];
+
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        'columns' => [
+            'name_first' => 2,
+            'name_middle' => 2,
+            'name_last' => 2,
+            'username' => 5,
+            'email' => 2,
+        ]
+    ];
 
     /**
      * Generate the hash for the new password

@@ -1,7 +1,7 @@
 <?php
 /**
  * An helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.0.16 on 2015-05-16.
+ * Generated for Laravel 5.0.16 on 2015-05-19.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -9238,164 +9238,6 @@ namespace {
     }
 
 
-    class URL extends \Illuminate\Support\Facades\URL{
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function full(){
-            return \Illuminate\Routing\UrlGenerator::full();
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function current(){
-            return \Illuminate\Routing\UrlGenerator::current();
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function previous(){
-            return \Illuminate\Routing\UrlGenerator::previous();
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function to($path, $extra = array(), $secure = null){
-            return \Illuminate\Routing\UrlGenerator::to($path, $extra, $secure);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function secure($path, $parameters = array()){
-            return \Illuminate\Routing\UrlGenerator::secure($path, $parameters);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function asset($path, $secure = null){
-            return \Illuminate\Routing\UrlGenerator::asset($path, $secure);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function secureAsset($path){
-            return \Illuminate\Routing\UrlGenerator::secureAsset($path);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function forceSchema($schema){
-            return \Illuminate\Routing\UrlGenerator::forceSchema($schema);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function route($name, $parameters = array(), $absolute = true){
-            return \Illuminate\Routing\UrlGenerator::route($name, $parameters, $absolute);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function action($action, $parameters = array(), $absolute = true){
-            return \Illuminate\Routing\UrlGenerator::action($action, $parameters, $absolute);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function forceRootUrl($root){
-            return \Illuminate\Routing\UrlGenerator::forceRootUrl($root);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function isValidUrl($path){
-            return \Illuminate\Routing\UrlGenerator::isValidUrl($path);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function getRequest(){
-            return \Illuminate\Routing\UrlGenerator::getRequest();
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function setRequest($request){
-            return \Illuminate\Routing\UrlGenerator::setRequest($request);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function setRoutes($routes){
-            return \Illuminate\Routing\UrlGenerator::setRoutes($routes);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function setSessionResolver($sessionResolver){
-            return \Illuminate\Routing\UrlGenerator::setSessionResolver($sessionResolver);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function setRootControllerNamespace($rootNamespace){
-            return \Illuminate\Routing\UrlGenerator::setRootControllerNamespace($rootNamespace);
-        }
-        
-    }
-
-
     class Validator extends \Illuminate\Support\Facades\Validator{
         
         /**
@@ -10977,6 +10819,294 @@ namespace {
          */
         public static function hasMacro($name){
             return \Illuminate\Html\HtmlBuilder::hasMacro($name);
+        }
+        
+    }
+
+
+    class Active extends \HieuLe\Active\Facades\Active{
+        
+        /**
+         * Return 'active' class if current requested URI is matched
+         *
+         * @param string $uri
+         * @param string $class
+         * @return string 
+         * @static 
+         */
+        public static function uri($uri, $class = 'active'){
+            return \HieuLe\Active\Active::uri($uri, $class);
+        }
+        
+        /**
+         * Return 'active' class if current requested query string has key that matches value
+         *
+         * @param string $key the query key
+         * @param string $value the value of the query parameter
+         * @param string $class the returned class
+         * @return string the returned class if the parameter <code>$key</code> has
+         * the value equal to <code>$value</code> or contains the <code>$value</code>
+         * in case of an array
+         * @static 
+         */
+        public static function query($key, $value, $class = 'active'){
+            return \HieuLe\Active\Active::query($key, $value, $class);
+        }
+        
+        /**
+         * Return 'active' class if current route match a pattern
+         *
+         * @param string|array $patterns
+         * @param string $class
+         * @return string 
+         * @static 
+         */
+        public static function pattern($patterns, $class = 'active'){
+            return \HieuLe\Active\Active::pattern($patterns, $class);
+        }
+        
+        /**
+         * Return 'active' class if current route name match one of provided names
+         *
+         * @param string|array $names
+         * @param string $class
+         * @return string 
+         * @static 
+         */
+        public static function route($names, $class = 'active'){
+            return \HieuLe\Active\Active::route($names, $class);
+        }
+        
+        /**
+         * Check the current route name with one or some patterns
+         *
+         * @param string|array $patterns
+         * @param string $class
+         * @return string the <code>$class</code> if matched
+         * @since 1.2
+         * @static 
+         */
+        public static function routePattern($patterns, $class = 'active'){
+            return \HieuLe\Active\Active::routePattern($patterns, $class);
+        }
+        
+        /**
+         * Return 'active' class if current route action match one of provided action names
+         *
+         * @param string|array $actions
+         * @param string $class
+         * @param bool $fullClassName if set to false, only controller class name (without namespace) is included in the action string. Otherwise, namespace will be included.
+         * @return string 
+         * @static 
+         */
+        public static function action($actions, $class = 'active', $fullClassName = false){
+            return \HieuLe\Active\Active::action($actions, $class, $fullClassName);
+        }
+        
+        /**
+         * Return 'active' class if current controller match a controller name and
+         * current method doest not belong to excluded methods. The controller name
+         * and method name are gotten from <code>getController</code> and <code>getMethod</code>.
+         *
+         * @param string $controller
+         * @param string $class
+         * @param array $excludedMethods
+         * @return string 
+         * @static 
+         */
+        public static function controller($controller, $class = 'active', $excludedMethods = array()){
+            return \HieuLe\Active\Active::controller($controller, $class, $excludedMethods);
+        }
+        
+        /**
+         * Return 'active' class if current controller name match one of provided
+         * controller names.
+         *
+         * @param array $controllers
+         * @param string $class
+         * @return string 
+         * @static 
+         */
+        public static function controllers($controllers, $class = 'active'){
+            return \HieuLe\Active\Active::controllers($controllers, $class);
+        }
+        
+        /**
+         * Get the current controller name with the suffix 'Controller' trimmed
+         *
+         * @return string|null 
+         * @static 
+         */
+        public static function getController(){
+            return \HieuLe\Active\Active::getController();
+        }
+        
+        /**
+         * Get the current method name with the prefix 'get', 'post', 'put', 'delete', 'show' trimmed
+         *
+         * @return string|null 
+         * @static 
+         */
+        public static function getMethod(){
+            return \HieuLe\Active\Active::getMethod();
+        }
+        
+    }
+
+
+    class URL extends \DCN\Facades\URL{
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function full(){
+            return \Illuminate\Routing\UrlGenerator::full();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function current(){
+            return \Illuminate\Routing\UrlGenerator::current();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function previous(){
+            return \Illuminate\Routing\UrlGenerator::previous();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function to($path, $extra = array(), $secure = null){
+            return \Illuminate\Routing\UrlGenerator::to($path, $extra, $secure);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function secure($path, $parameters = array()){
+            return \Illuminate\Routing\UrlGenerator::secure($path, $parameters);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function asset($path, $secure = null){
+            return \Illuminate\Routing\UrlGenerator::asset($path, $secure);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function secureAsset($path){
+            return \Illuminate\Routing\UrlGenerator::secureAsset($path);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function forceSchema($schema){
+            return \Illuminate\Routing\UrlGenerator::forceSchema($schema);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function route($name, $parameters = array(), $absolute = true){
+            return \Illuminate\Routing\UrlGenerator::route($name, $parameters, $absolute);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function action($action, $parameters = array(), $absolute = true){
+            return \Illuminate\Routing\UrlGenerator::action($action, $parameters, $absolute);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function forceRootUrl($root){
+            return \Illuminate\Routing\UrlGenerator::forceRootUrl($root);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function isValidUrl($path){
+            return \Illuminate\Routing\UrlGenerator::isValidUrl($path);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function getRequest(){
+            return \Illuminate\Routing\UrlGenerator::getRequest();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function setRequest($request){
+            return \Illuminate\Routing\UrlGenerator::setRequest($request);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function setRoutes($routes){
+            return \Illuminate\Routing\UrlGenerator::setRoutes($routes);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function setSessionResolver($sessionResolver){
+            return \Illuminate\Routing\UrlGenerator::setSessionResolver($sessionResolver);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function setRootControllerNamespace($rootNamespace){
+            return \Illuminate\Routing\UrlGenerator::setRootControllerNamespace($rootNamespace);
         }
         
     }

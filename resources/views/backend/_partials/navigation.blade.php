@@ -16,6 +16,18 @@
     </ul>
 </li>
 <li class="{{Active::route('admin.users.settings','active')}}"><a href="#"><i class='fa fa-gear'></i> <span>Settings</span></a></li>
+
+<li class="header">Pages</li>
+<!-- Optionally, you can add icons to the links -->
+<li class="treeview {{Active::routePattern('admin.pages.*',"active")}}">
+    <a href="{{URL::route('admin.pages')}}"><i class='fa fa-user'></i> <span>Pages</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+        <li class="{{Active::route('admin.pages.list','active')}}"><a href="{{URL::route('admin.pages.list')}}"><i class='fa fa-users'></i> <span>List Pages</span></a></li>
+        <li class="{{Active::route('admin.pages.create','active')}}"><a href="{{URL::route('admin.pages.create')}}"><i class='fa fa-users-plus'></i> <span>Create Page</span></a></li>
+        <li class="{{Active::route('admin.pages.settings','active')}}"><a href="#"><i class='fa fa-gear'></i> <span>Settings</span></a></li>
+    </ul>
+</li>
+
 <!--
 <li class="header">Navigation</li>
 <li><a href="#"><i class='fa fa-link'></i> <span>Link</span></a></li>

@@ -2,7 +2,7 @@
 
 use DCN\Http\Requests\Request;
 
-class RoleRequest extends Request {
+class PageRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -31,28 +31,34 @@ class RoleRequest extends Request {
             case 'POST':
             {
                 return [
-                    'name'=>['required'],
-                    'slug'=>['unique:roles,slug'],
+                    'title'=>['required'],
                     'description'=>['required'],
-                    'level'=>['integer','max:1000000000']
+                    'content'=>['required'],
+                    'owner_id'=>['integer','exists:users,id'],
+                    'system'=>['required'],
+                    'status'=>['required','in:draft,review,published'],
                 ];
             }
             case 'PUT':
             {
                 return [
-                    'name'=>['required'],
-                    'slug'=>['unique:roles,slug,'.$this->route()->role->id],
+                    'title'=>['required'],
                     'description'=>['required'],
-                    'level'=>['integer','max:1000000000']
+                    'content'=>['required'],
+                    'owner_id'=>['integer','exists:users,id'],
+                    'system'=>['required'],
+                    'status'=>['required','in:draft,review,published'],
                 ];
             }
             case 'PATCH':
             {
                 return [
-                    'name'=>['required'],
-                    'slug'=>['unique:roles,slug,'.$this->route()->role->id],
+                    'title'=>['required'],
                     'description'=>['required'],
-                    'level'=>['integer','max:1000000000']
+                    'content'=>['required'],
+                    'owner_id'=>['integer','exists:users,id'],
+                    'system'=>['required'],
+                    'status'=>['required','in:draft,review,published'],
                 ];
             }
             default:break;

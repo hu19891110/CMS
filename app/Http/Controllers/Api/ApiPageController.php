@@ -2,13 +2,13 @@
 
 use DCN\Http\Requests;
 use DCN\Http\Controllers\Controller;
-use DCN\Role;
 
-use DCN\Http\Requests\RoleRequest;
+use DCN\Http\Requests\PageRequest;
+use DCN\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
-class ApiRoleController extends Controller {
+class ApiPageController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -17,10 +17,10 @@ class ApiRoleController extends Controller {
 	 */
 	public function index()
 	{
-        $roles = Role::paginate(10);
+        $pages = Page::paginate(10);
         return Response::json(array(
             'success' => true,
-            'roles'   => $roles->toArray()
+            'pages'   => $pages->toArray()
         ));
 	}
 
@@ -31,22 +31,22 @@ class ApiRoleController extends Controller {
 	 */
 	public function create()
 	{
-        return view('api.role.create');
+        return view('api.page.create');
 	}
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param RoleRequest $request
+     * @param PageRequest $request
      * @return Response
      */
-	public function store(RoleRequest $request)
+	public function store(PageRequest $request)
 	{
         try{
-            $role = Role::create($request->all());
+            $page = Page::create($request->all());
             return Response::json(array(
                 'success' => true,
-                'role'   => $role
+                'page'   => $page
             ));
         }
         catch(\Exception $e){
@@ -60,47 +60,47 @@ class ApiRoleController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param Role $role
+     * @param Page $page
      * @return Response
      * @internal param int $id
      */
-	public function show(Role $role)
+	public function show(Page $page)
 	{
         return Response::json(array(
             'success' => true,
-            'role'   => $role
+            'page'   => $page
         ));
 	}
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Role $role
+     * @param Page $page
      * @return Response
      * @internal param int $id
      */
-	public function edit(Role $role)
+	public function edit(Page $page)
 	{
-        return view('api.role.edit', compact('role'));
+        return view('api.page.edit', compact('page'));
 	}
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Role $role
-     * @param RoleRequest $request
+     * @param Page $page
+     * @param PageRequest $request
      * @return Response
      * @internal param int $id
      */
-	public function update(Role $role, RoleRequest $request)
+	public function update(Page $page, PageRequest $request)
 	{
         try
         {
-            $role->update($request->all());
+            $page->update($request->all());
 
             return Response::json(array(
                 'success' => true,
-                'role'   => $role
+                'page'   => $page
             ));
         }
         catch(\Exception $e)
@@ -115,14 +115,14 @@ class ApiRoleController extends Controller {
     /**
      * Remove the specified resource from storage.
      *
-     * @param Role $role
+     * @param Page $page
      * @return Response
      * @internal param int $id
      */
-	public function destroy(Role $role)
+	public function destroy(Page $page)
 	{
         try{
-            $role->delete();
+            $page->delete();
             return Response::json(array(
                 'completed' => true
             ));
