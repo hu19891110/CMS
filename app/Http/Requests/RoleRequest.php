@@ -11,7 +11,10 @@ class RoleRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return true;
+        if(Auth::user()->is('user.admin') || Auth::user()->can('user.roles'))
+            return true;
+        else
+            return false;
 	}
 
 	/**
@@ -34,7 +37,8 @@ class RoleRequest extends Request {
                     'name'=>['required'],
                     'slug'=>['unique:roles,slug'],
                     'description'=>['required'],
-                    'level'=>['integer','max:1000000000']
+                    'level'=>['integer','max:1000000000'],
+                    'permission'=>'array',
                 ];
             }
             case 'PUT':
@@ -43,7 +47,8 @@ class RoleRequest extends Request {
                     'name'=>['required'],
                     'slug'=>['unique:roles,slug,'.$this->route()->role->id],
                     'description'=>['required'],
-                    'level'=>['integer','max:1000000000']
+                    'level'=>['integer','max:1000000000'],
+                    'permission'=>'array',
                 ];
             }
             case 'PATCH':
@@ -52,7 +57,8 @@ class RoleRequest extends Request {
                     'name'=>['required'],
                     'slug'=>['unique:roles,slug,'.$this->route()->role->id],
                     'description'=>['required'],
-                    'level'=>['integer','max:1000000000']
+                    'level'=>['integer','max:1000000000'],
+                    'permission'=>'array',
                 ];
             }
             default:break;

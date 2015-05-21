@@ -15,7 +15,6 @@ class RoleController extends Controller {
 
     public function getIndex()
     {
-        //Display Latest User Actions Etc.
         $history = Role::classRevisionHistory();
         return view('backend.role.index',compact('history'));
     }
@@ -25,8 +24,7 @@ class RoleController extends Controller {
     }
     public function getList()
     {
-        //Display Latest User Actions Etc.wat
-        $roles = Role::paginate(10);
+        $roles = Role::orderBy('level','desc')->paginate(10);
         return view('backend.role.list',compact('roles'));
     }
     public function getEdit(Role $role)

@@ -13,7 +13,8 @@ class DatabaseSeeder extends Seeder {
 	public function run()
 	{
 		Model::unguard();
-
+        $this->call('SeedDCNCMS');
+        $this->command->info('DCN CMS Populated with default data!');
 		// $this->call('UserTableSeeder');
 	}
 

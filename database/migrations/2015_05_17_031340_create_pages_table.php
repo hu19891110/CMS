@@ -23,13 +23,14 @@ class CreatePagesTable extends Migration {
             $table->integer('creator_id')->unsigned();
             $table->integer('updater_id')->unsigned();
             $table->boolean('system')->default(FALSE);
-            $table->enum('status',['draft','review','published'])->default('draft');
+            $table->enum('status',['draft','review','unpublished','published'])->default('draft');
 
             //Required For Baum Nested Sets
             $table->integer('parent_id')->nullable();
             $table->integer('lft')->nullable();
             $table->integer('rgt')->nullable();
             $table->integer('depth')->nullable();
+            $table->timestamp('published_at')->nullable();
 
 			$table->timestamps();
             $table->softDeletes();

@@ -13,4 +13,9 @@ class Role extends \Bican\Roles\Models\Role  implements RoleContract{
         parent::__construct($attributes);
     }
 
+    public static function bySlug($roleSlug)
+    {
+        return self::where('slug',$roleSlug)->first();
+    }
+
 }

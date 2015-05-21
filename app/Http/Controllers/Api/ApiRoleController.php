@@ -2,6 +2,7 @@
 
 use DCN\Http\Requests;
 use DCN\Http\Controllers\Controller;
+use DCN\Permission;
 use DCN\Role;
 
 use DCN\Http\Requests\RoleRequest;
@@ -44,6 +45,14 @@ class ApiRoleController extends Controller {
 	{
         try{
             $role = Role::create($request->all());
+            if(!is_null($request->get('permission')))
+            {
+                $role->detachAllPermissions();
+                foreach($request->get('permission') as $pid)
+                {
+                    $role->attachPermission(Permission::find($pid));
+                }
+            }
             return Response::json(array(
                 'success' => true,
                 'role'   => $role
@@ -97,7 +106,15 @@ class ApiRoleController extends Controller {
         try
         {
             $role->update($request->all());
-
+            //Update The Permissions
+            if(!is_null($request->get('permission')))
+            {
+                $role->detachAllPermissions();
+                foreach($request->get('permission') as $pid)
+                {
+                    $role->attachPermission(Permission::find($pid));
+                }
+            }
             return Response::json(array(
                 'success' => true,
                 'role'   => $role

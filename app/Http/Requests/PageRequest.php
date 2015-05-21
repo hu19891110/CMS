@@ -1,5 +1,6 @@
 <?php namespace DCN\Http\Requests;
 
+use Auth;
 use DCN\Http\Requests\Request;
 
 class PageRequest extends Request {
@@ -11,7 +12,11 @@ class PageRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return true;
+
+        if(Auth::user()->is('page.admin') || Auth::user()->can('page.*'))
+		    return true;
+        else
+            return false;
 	}
 
 	/**
@@ -36,7 +41,7 @@ class PageRequest extends Request {
                     'content'=>['required'],
                     'owner_id'=>['integer','exists:users,id'],
                     'system'=>['required'],
-                    'status'=>['required','in:draft,review,published'],
+                    'status'=>['required','in:draft,review,unpublished,published'],
                 ];
             }
             case 'PUT':
@@ -47,7 +52,7 @@ class PageRequest extends Request {
                     'content'=>['required'],
                     'owner_id'=>['integer','exists:users,id'],
                     'system'=>['required'],
-                    'status'=>['required','in:draft,review,published'],
+                    'status'=>['required','in:draft,review,unpublished,published'],
                 ];
             }
             case 'PATCH':
@@ -58,7 +63,7 @@ class PageRequest extends Request {
                     'content'=>['required'],
                     'owner_id'=>['integer','exists:users,id'],
                     'system'=>['required'],
-                    'status'=>['required','in:draft,review,published'],
+                    'status'=>['required','in:draft,review,unpublished,published'],
                 ];
             }
             default:break;

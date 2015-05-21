@@ -55,7 +55,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             'name_middle' => 2,
             'name_last' => 2,
             'username' => 5,
-            'email' => 2,
+            'email' => 5,
         ]
     ];
 

@@ -42,6 +42,7 @@ class UserRequest extends Request
                     'status'=>['in:registered,active,locked,banned'],
                     'status_ts'=>['required_if:status,locked','date','after:now'],
                     'roles'=>['array'],
+                    'permission'=>['array'],
                 ];
             }
             case 'PUT':
@@ -54,7 +55,8 @@ class UserRequest extends Request
                     'password_confirmation'=>[ 'required_with:password' ],
                     'status'=>['in:registered,active,locked,banned'],
                     'status_ts'=>['required_if:status,locked','date','after:now'],
-                    'roles'=>['array']
+                    'roles'=>['array'],
+                    'permission'=>['array'],
                 ];
             }
             case 'PATCH':
@@ -67,7 +69,8 @@ class UserRequest extends Request
                     'password_confirmation'=>[ 'required_with:password' ],
                     'status'=>['in:registered,active,locked,banned'],
                     'status_ts'=>['required_if:status,locked','date','after:now'],
-                    'roles'=>['array']
+                    'roles'=>['array'],
+                    'permission'=>['array'],
                 ];
             }
             default:break;

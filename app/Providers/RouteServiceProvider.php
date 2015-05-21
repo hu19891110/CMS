@@ -42,6 +42,7 @@ class RouteServiceProvider extends ServiceProvider {
                 //TODO: Redirect to proper URL
             }
         });
+        $router->model('file','DCN\File');
 	}
 
 	/**

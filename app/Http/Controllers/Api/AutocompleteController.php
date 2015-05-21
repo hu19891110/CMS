@@ -3,6 +3,8 @@
 use DCN\Http\Requests;
 use DCN\Http\Controllers\Controller;
 
+use DCN\Permission;
+use DCN\Role;
 use DCN\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -20,6 +22,12 @@ class AutocompleteController extends Controller {
                 foreach(User::search($q)->limit(5)->get() as $user)
                 {
                     $response[$user->id] = ['id'=>$user->id,'username'=>$user->username];
+                }
+                break;
+            case "permission":
+                foreach(Permission::search($q)->limit(5)->get() as $permission)
+                {
+                    $response[$permission->id] = ['id'=>$permission->id,'name'=>$permission->name];
                 }
                 break;
             default:

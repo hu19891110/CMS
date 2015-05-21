@@ -1,9 +1,11 @@
 <?php namespace DCN\Http\Controllers\Api;
 
+use Auth;
 use DCN\Http\Requests;
 use DCN\Http\Controllers\Controller;
 
 use DCN\Http\Requests\UserRequest;
+use DCN\Permission;
 use DCN\User;
 use DCN\Role;
 use Illuminate\Html\FormFacade;
@@ -46,16 +48,28 @@ class ApiUserController extends Controller {
     public function store(UserRequest $request)
     {
         try{
-            $user = User::create($request->all());
-            foreach($request->get('roles') as $role)
-            {
-                $role=Role::where('slug',$role)->first();
-                $user->attachRole($role);
+            if(Auth::user()->can('user.create')){
+                $user = User::create($request->all());
+                foreach($request->get('roles') as $role)
+                {
+                    $role=Role::where('slug',$role)->first();
+                    $user->attachRole($role);
+                }
+                foreach($request->get('permission') as $pid)
+                {
+                    $user->attachPermission(Permission::find($pid));
+                }
+                return Response::json(array(
+                    'success' => true,
+                    'user'   => $user
+                ));
+            }else{
+                return Response::json(array(
+                    'success' => false,
+                    'error'   => 'Not Authorized'
+                ));
             }
-            return Response::json(array(
-                'success' => true,
-                'user'   => $user
-            ));
+
         }
         catch(\Exception $e){
             return Response::json(array(
@@ -106,41 +120,119 @@ class ApiUserController extends Controller {
     {
         try
         {
-            //Update The User
-            $user->update($request->except('password'));
-            //Update The Password
-            if(!is_null($request->input('password'))&&$request->input('password')!=='')
-            {
-                $user->update();
-            }
-            //Update The Roles
-            if(!is_null($request->get('roles')))
-            {
-                $requestRoles=$request->get('roles');
-                foreach($user->roles as $role)
+            /*
+             * Setup an Array of Errors
+             */
+            $errors = array();
+            /*
+             * If the current user has the User Edit Permission Update The User
+             */
+            foreach($request->except('password','status','status_ts') as $key => $value){
+                if($user->isFillable($key))
                 {
-                    //Check if the user already has the role requested
-                    if(in_array($role->slug,$requestRoles))
-                    {
-                        $exists=array_search($role->slug,$requestRoles);
-                        //Unset from the requested array, as the user already has this role
-                        unset($requestRoles[$exists]);
+                    if(Auth::user()->can('user.edit')){
+                        $user->update([$key => $value]);
                     }else{
-                        //User has a role that wasn't specified
-                        $user->detachRole($role);
+                        $errors[] = "No Permission To Edit User";
                     }
                 }
-                //Add Roles to the user that they don't already have
-                foreach($requestRoles as $role)
+            }
+            /*
+             * Update the user status
+             * lock/unlock
+             * banned/unbanned
+             * registered/active
+             */
+            if(Auth::user()->can('user.lock|user.unlock|user.ban|user.unban')){
+                switch($request->only('status'))
                 {
-                    $role=Role::where('slug',$role)->first();
-                    $user->attachRole($role);
+                    case "locked":
+                        if($user->status!="locked" && Auth::user()->can('user.lock'))
+                            $user->update(['status' => $request->input('status')]);
+                        else
+                            $errors[] = "No Permission to Lock User";
+                        break;
+                    case "banned":
+                        if($user->status!="banned" && Auth::user()->can('user.ban'))
+                            $user->update(['status' => $request->input('status')]);
+                        else
+                            $errors[] = "No Permission to Ban User";
+                        break;
+                    default:
+                        $status=$request->input('status');
+                        if(isset($status)){
+                            if($user->status=="locked" && Auth::user()->can('user.unlock'))
+                                $user->update(['status' => $request->input('status')]);
+                            elseif($user->status=="locked" && Auth::user()->can('user.unban'))
+                                $user->update(['status' => $request->input('status')]);
+                            else
+                                $errors[] = "No Permission to Unlock or Unban User";
+                        }
+                        break;
                 }
+            }elseif($user->status != $request->only('status')){
+                $errors[] = "No Permission to Update User Status!";
+            }
+            /*
+            * If the current user has the User Reset Permission Update The Users Password
+            */
+            if(Auth::user()->can('user.reset')) {
+                if (!is_null($request->input('password')) && $request->input('password') !== '') {
+                    $user->update(['password' => $request->input('password')]);
+                }
+            }else{
+                if (!is_null($request->input('password')) && $request->input('password') !== '') {
+                    $errors[] = "No Permission to Reset User Passwords";
+                }
+            }
+
+            /*
+            * If the current user has the User Roles Permission Update The Users Role
+            */
+            if(Auth::user()->can('user.roles')) {
+                if (!is_null($request->get('roles'))) {
+                    $requestRoles = $request->get('roles');
+                    foreach ($user->roles as $role) {
+                        //Check if the user already has the role requested
+                        if (in_array($role->slug, $requestRoles)) {
+                            $exists = array_search($role->slug, $requestRoles);
+                            //Unset from the requested array, as the user already has this role
+                            unset($requestRoles[$exists]);
+                        } else {
+                            //User has a role that wasn't specified
+                            $user->detachRole($role);
+                        }
+                    }
+                    //Add Roles to the user that they don't already have
+                    foreach ($requestRoles as $role) {
+                        $role = Role::where('slug', $role)->first();
+                        $user->attachRole($role);
+                    }
+                }
+            }else{
+                if (!is_null($request->get('roles')))
+                    $errors[] = "No Permission to Change User Roles";
+            }
+            /*
+            * If the current user has the User Roles Permission Update The Users Role
+            */
+            if(Auth::user()->can('user.permissions')) {
+                $user->detachAllPermissions();
+                //Update The Permissions
+                if (!is_null($request->get('permission'))) {
+                    foreach ($request->get('permission') as $pid) {
+                        $user->attachPermission(Permission::find($pid));
+                    }
+                }
+            }else{
+                if (!is_null($request->get('permission')))
+                    $errors[] = "No Permission to Change User Permissions";
             }
 
             return Response::json(array(
                 'success' => true,
-                'user'   => $user
+                'user'   => $user,
+                'errors' => $errors
             ));
         }
         catch(\Exception $e)
@@ -162,10 +254,17 @@ class ApiUserController extends Controller {
     public function destroy(User $user)
     {
         try{
-            $user->delete();
-            return Response::json(array(
-                'completed' => true
-            ));
+            if(Auth::user()->can('user.delete')){
+                $user->delete();
+                return Response::json(array(
+                    'completed' => true
+                ));
+            }else{
+                return Response::json(array(
+                    'success' => false,
+                    'errors'   => ['Not Authorized to delete users']
+                ));
+            }
         }
         catch(\Exception $e){
             return Response::json(array(
