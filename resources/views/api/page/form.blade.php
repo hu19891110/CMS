@@ -13,14 +13,30 @@
                     {!! Form::label('description','Description') !!}
                     {!! Form::text('description',null,['class'=>"form-control"]) !!}
                 </div>
-                <div class="form-group">
-                    {!! Form::label('system','Page Type') !!}
-                    {!! Form::select('system', [false=>'Normal',true=>'System'], null, ['class'=>"form-control"]) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('status','Status') !!}
-                    {!! Form::select('status', ["draft"=>'Draft',"review"=>'Under Review',"published"=>'Published'], null, ['class'=>"form-control"]) !!}
-                </div>
+                @permission('page.system')
+                    <div class="form-group">
+                        {!! Form::label('system','Page Type') !!}
+                        {!! Form::select('system', [false=>'Normal',true=>'System'], null, ['class'=>"form-control"]) !!}
+                    </div>
+                @endpermission
+                @permission('page.review')
+                    @permission('page.publish')
+                        <div class="form-group">
+                            {!! Form::label('status','Status') !!}
+                            {!! Form::select('status', ["draft"=>'Draft',"review"=>'Under Review',"unpublished"=>'Unpublished', "published"=>'Published'], null, ['class'=>"form-control"]) !!}
+                        </div>
+                    @else
+                        <div class="form-group">
+                            {!! Form::label('status','Status') !!}
+                            {!! Form::select('status', ["draft"=>'Draft',"review"=>'Under Review',"unpublished"=>'Unpublished'], null, ['class'=>"form-control"]) !!}
+                        </div>
+                    @endpermission
+                @else
+                    <div class="form-group">
+                        {!! Form::label('status','Status') !!}
+                        {!! Form::select('status', ["draft"=>'Draft',"review"=>'Under Review'], null, ['class'=>"form-control"]) !!}
+                    </div>
+                @endpermission
             </div>
         </div>
     </div>

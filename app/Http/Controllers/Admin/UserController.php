@@ -20,6 +20,8 @@ class UserController extends Controller
     {
         //Display Latest User Actions Etc.
         $history = User::classRevisionHistory();
+		$user=User::find(2);
+		dd($user->revisionHistory()->count());
         return view('backend.user.index',compact('history'));
     }
     public function getCreate()

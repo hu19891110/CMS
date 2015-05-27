@@ -57,6 +57,20 @@ Route::group(['prefix'=>'auth'],function(){
     Route::post('/register', 'AuthController@postRegister');
 
 });
+/*
+ * Portal Routes
+ */
+Route::group(['namespace'=>'Portal','prefix'=>'portal'], function() {
+    /*
+     * Index
+     *
+     * Displays Most Recent Activity & Stats For The User
+     */
+    Route::get('/', [
+        'uses' => 'PortalController@getIndex',
+        'as' => 'portal.dashboard'
+    ]);
+});
 
 /*
  * Admin Routes

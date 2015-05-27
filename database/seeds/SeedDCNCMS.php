@@ -31,7 +31,7 @@ class SeedDCNCMS extends Seeder
             ),
             array(
                 'name' => 'User Admin',
-                'slug'=>'user.admin',
+                'slug'=>'admin.user',
                 'description'=>'User Management Admins',
                 'level'=>5000,
                 'permissionsArray'=>array(
@@ -50,7 +50,7 @@ class SeedDCNCMS extends Seeder
             ),
             array(
                 'name' => 'Page Admin',
-                'slug'=>'page.admin',
+                'slug'=>'admin.page',
                 'description'=>'Page Management Admins',
                 'level'=>5000,
                 'permissionsArray'=>array(
@@ -69,7 +69,9 @@ class SeedDCNCMS extends Seeder
                 'slug'=>'member',
                 'description'=>'Default Group For All Users',
                 'level'=>1,
-                'permissionsArray'=>array()
+                'permissionsArray'=>array(
+                    array('slug'=>'portal', 'name' => 'Portal Access', 'description'=>'People with this permission can access the web portal'),
+                )
             ),
         );
 
@@ -150,7 +152,7 @@ class SeedDCNCMS extends Seeder
                 'title'=>'Home Page',
                 'slug'=>'home',
                 'description'=>'Website Home Page',
-                'content'=>'<h1>Welcome To Your Website!</h1>',
+                'content'=>'<div class="row clearfix"><div class="column full"><figure class="hdr one"><img src=/assets/vendor/ContentBuilder/assets/minimalist-basic/o04-1.jpg><div><figcaption><h2>DCN CMS</h2><p>Take a breath. We do the hard work.</p></figcaption></div></figure></div></div><div class="row clearfix"><div class="column full"><div class="display center"><h1>View The Source.</h1><p>And use it on your own. Or let us install and manage it for you.</p></div></div></div><div class="row clearfix"><div class="column full center"><div style="margin:1em 0 2.5em"><a href=https://github.com/DynamicCodeNinja/CMS class="btn btn-primary edit" target=_blank>View on Github</a></div></div></div><div class="row clearfix"><div class="column two-sixth flow-opposite"><p><b>DynamicCode.Ninja</b><br>A CloudMy.IT LLC Orginization focused on web development and making your life easier.</p><div class="social edit"><a href="https://twitter.com/"><i class=icon-twitter></i></a> <a href="https://www.facebook.com/"><i class=icon-facebook></i></a> <a href="https://plus.google.com/"><i class=icon-googleplus></i></a> <a href=mailto:you@example.com><i class=icon-mail></i></a></div></div><div class="column sixth center"><img src=/assets/vendor/ContentBuilder/assets/minimalist-basic/s01-1.jpg class=circle style=margin-top:1.2em></div></div>',
                 'owner_id'=>1,
                 'creator_id'=>1,
                 'updater_id'=>1,

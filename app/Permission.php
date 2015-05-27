@@ -29,4 +29,8 @@ class Permission extends \Bican\Roles\Models\Permission implements PermissionCon
         parent::__construct($attributes);
     }
 
+    public static function bySlug($slug)
+    {
+        return self::where('slug',$slug)->first();
+    }
 }

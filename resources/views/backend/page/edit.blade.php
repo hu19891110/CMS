@@ -11,13 +11,6 @@
     {!! Form::close() !!}
 @stop
 @section('javascript')
-    {!! HTML::script( asset('assets/vendor/widearea/widearea.js') ) !!}
-    <script>
-        // prepare the form when the DOM is ready
-        $(document).ready(function() {
-            wideArea();
-        });
-    </script>
     <script>
         // prepare the form when the DOM is ready
         $(document).ready(function() {
@@ -38,6 +31,10 @@
 
             function successMessage(json)
             {
+                if (json.errors)
+                    $.each(json.errors, function () {
+                        $('#alert-area').append('<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-cross"></i> Warning!</h4>' + this + '</div>');
+                    });
                 var str = '@oneLine('backend.page._partials.alerts.page-edited')';
                 $('#alert-area').append(str);
             }
@@ -49,7 +46,7 @@
             $( "#owner_name" ).autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url: "{!! URL::route('api.autocomplete',['type'=>'user']) !!}",
+                        url: "{!! URL::route('api.autocomplete',['type'=>'page-owner']) !!}",
                         dataType: "json",
                         data: {
                             q: request.term
@@ -82,7 +79,7 @@
             $( "#creator_name" ).autocomplete({
                 source: function( request, response ) {
                     $.ajax({
-                        url: "{!! URL::route('api.autocomplete',['type'=>'user']) !!}",
+                        url: "{!! URL::route('api.autocomplete',['type'=>'page-creator']) !!}",
                         dataType: "json",
                         data: {
                             q: request.term

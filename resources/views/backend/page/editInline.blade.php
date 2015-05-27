@@ -3,7 +3,7 @@
 @section('subtitle',$page->slug)
 @section('css')
     {!! HTML::style( asset('/assets/vendor/ContentBuilder/scripts/contentbuilder.css') ) !!}
-    {!! HTML::style( asset('/assets/vendor/ContentBuilder/assets/default/content.css') ) !!}
+    {!! HTML::style( asset('/assets/vendor/ContentBuilder/assets/minimalist-basic/content.css') ) !!}
     {!! HTML::style( asset('assets/vendor/jquery-ui/themes/base/jquery-ui.css') ) !!}
     <style>
         #parent{

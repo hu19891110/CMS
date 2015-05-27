@@ -27,6 +27,7 @@
     </div><!-- /.modal-dialog -->
 </div>
 {!! HTML::script( asset('/assets/vendor/ContentBuilder/scripts/contentbuilder.js') ) !!}
+{!! HTML::script( asset('/assets/vendor/ContentBuilder/scripts/saveimages.js') ) !!}
 <script type="text/javascript">
     $(document).ready(function() {
 
@@ -41,7 +42,7 @@
         $( "#owner_name" ).autocomplete({
             source: function( request, response ) {
                 $.ajax({
-                    url: "{!! URL::route('api.autocomplete',['type'=>'user']) !!}",
+                    url: "{!! URL::route('api.autocomplete',['type'=>'page-owner']) !!}",
                     dataType: "json",
                     data: {
                         q: request.term
@@ -74,7 +75,7 @@
         $( "#creator_name" ).autocomplete({
             source: function( request, response ) {
                 $.ajax({
-                    url: "{!! URL::route('api.autocomplete',['type'=>'user']) !!}",
+                    url: "{!! URL::route('api.autocomplete',['type'=>'page-creator']) !!}",
                     dataType: "json",
                     data: {
                         q: request.term
@@ -117,17 +118,25 @@
         };
 
         $('#Save-Page').click(function(){
-            var sHTML = $('#contentarea').data('contentbuilder').html();
-            $('#content').val(sHTML);
-            if($('form[name=edit-page-form]').submit(function(){return false;})){
-                $.ajax({
-                    type: 'POST',
-                    url: $('form[name=edit-page-form]').attr('action'),
-                    data: $('form[name=edit-page-form]').serialize(),
-                    success:       successMessage,
-                    error: errorJson,
-                });
-            }
+            //Save Images
+            $("#contentarea").saveimages({
+                handler: '/saveimage.php',
+                onComplete: function () {
+                    var sHTML = $('#contentarea').data('contentbuilder').html();
+                    $('#content').val(sHTML);
+                    if($('form[name=edit-page-form]').submit(function(){return false;})){
+                        $.ajax({
+                            type: 'POST',
+                            url: $('form[name=edit-page-form]').attr('action'),
+                            data: $('form[name=edit-page-form]').serialize(),
+                            success:       successMessage,
+                            error: errorJson,
+                        });
+                    }
+                }
+            });
+            $("#contentarea").data('saveimages').save();
+
             return false;
         });
 

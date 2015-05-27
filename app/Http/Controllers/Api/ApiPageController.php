@@ -1,5 +1,6 @@
 <?php namespace DCN\Http\Controllers\Api;
 
+use Auth;
 use DCN\Http\Requests;
 use DCN\Http\Controllers\Controller;
 
@@ -43,7 +44,9 @@ class ApiPageController extends Controller {
 	public function store(PageRequest $request)
 	{
         try{
-            $page = Page::create($request->all());
+            if(Auth::user()->can('user.create')) {
+                $page = Page::create($request->all());
+            }
             return Response::json(array(
                 'success' => true,
                 'page'   => $page

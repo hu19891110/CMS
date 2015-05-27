@@ -1,5 +1,7 @@
 <?php namespace DCN\Http\Controllers\Admin;
 
+use App;
+use Auth;
 use DCN\Page;
 use DCN\Http\Requests;
 use DCN\Http\Controllers\Controller;
@@ -31,6 +33,9 @@ class PageController extends Controller {
     }
     public function getEdit(Page $page)
     {
+        if($page->system)
+            if(!Auth::user()->can('page.system'))
+                App::abort(403,"No Permission to edit system pages");
         return view('backend.page.edit',compact('page'));
     }
 

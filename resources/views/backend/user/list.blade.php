@@ -26,14 +26,20 @@
                                 <!-- Edit User -->
                                 <a href="{{URL::route('admin.users.edit',$user)}}" class="btn btn-default btn-xs"><i class="fa fa-edit"></i></a>
 
-                                <!-- Lock User -->
-                                @include('backend.user._partials.lock-btn')
+                                @permission('user.lock|user.unlock')
+                                    <!-- Lock User -->
+                                    @include('backend.user._partials.lock-btn')
+                                @endpermission
 
-                                <!-- Ban User -->
-                                @include('backend.user._partials.ban-btn')
+                                @permission('user.ban|user.unban')
+                                    <!-- Ban User -->
+                                    @include('backend.user._partials.ban-btn')
+                                @endpermission
 
-                                <!--Delete User -->
-                                @include('backend.user._partials.delete-btn')
+                                @permission('user.delete')
+                                    <!--Delete User -->
+                                    @include('backend.user._partials.delete-btn')
+                                @endpermission
                             </td>
                         </tr>
 

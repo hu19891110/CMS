@@ -5,6 +5,7 @@ use DCN\Http\Requests;
 use DCN\Http\Controllers\Controller;
 
 use DCN\Http\Requests\LoginRequest;
+use DCN\Role;
 use Illuminate\Http\Request;
 use URL;
 
@@ -66,7 +67,8 @@ class AuthController extends Controller {
      */
     public function getRegister()
     {
-        return view('auth.register');
+        $roles = Role::all()->groupBy('level');
+        return view('auth.register',compact('roles'));
     }
 
 }

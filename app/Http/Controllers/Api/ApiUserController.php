@@ -48,28 +48,36 @@ class ApiUserController extends Controller {
     public function store(UserRequest $request)
     {
         try{
-            if(Auth::user()->can('user.create')){
-                $user = User::create($request->all());
-                foreach($request->get('roles') as $role)
-                {
-                    $role=Role::where('slug',$role)->first();
-                    $user->attachRole($role);
+            /*
+             * Because anyone can register an account
+             * Were going to just create users at will
+             */
+            $user = User::create($request->except('status','status_ts'));
+            /*
+             * Because all users are members Lets assign that role.
+             */
+            $role=Role::where('slug','member')->first();
+            $user->attachRole($role);
+            /*
+             * Anything additional needs permissions....
+             */
+            if(Auth::check()) {
+                if (Auth::user()->can('user.roles')) {
+                    foreach ($request->get('roles') as $role) {
+                        $role = Role::where('slug', $role)->first();
+                        $user->attachRole($role);
+                    }
                 }
-                foreach($request->get('permission') as $pid)
-                {
-                    $user->attachPermission(Permission::find($pid));
+                if (Auth::user()->can('user.permissions')) {
+                    foreach ($request->get('permission') as $pid) {
+                        $user->attachPermission(Permission::find($pid));
+                    }
                 }
-                return Response::json(array(
-                    'success' => true,
-                    'user'   => $user
-                ));
-            }else{
-                return Response::json(array(
-                    'success' => false,
-                    'error'   => 'Not Authorized'
-                ));
             }
-
+            return Response::json(array(
+                'success' => true,
+                'user'   => $user
+            ));
         }
         catch(\Exception $e){
             return Response::json(array(
@@ -134,6 +142,7 @@ class ApiUserController extends Controller {
                         $user->update([$key => $value]);
                     }else{
                         $errors[] = "No Permission To Edit User";
+                        break;
                     }
                 }
             }
