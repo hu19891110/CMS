@@ -20,7 +20,7 @@ class Page extends Facade {
     {
         $options=array('id'=>'ok','name'=>'bob');
         $options=array_replace($options,$inputOptions);
-        $pages = Pages::roots()->get();
+        $pages = Pages::roots()->where('status','published')->get();
         $html = "";
         foreach($pages as $page)
         {
@@ -36,7 +36,7 @@ class Page extends Facade {
         {
             $currentPage=$router->current()->pageUrl;
         }
-        if($page->descendants()->count() > 0){
+        if($page->descendants()->where('status','published')->count() > 0){
             if(isset($currentPage)&&$currentPage->isSelfOrDescendantOf($page))
             {
                 $html = "<li class=\"dropdown active\">";
@@ -47,7 +47,7 @@ class Page extends Facade {
             $html .= "<a data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\" class=\"dropdown-toggle\" href=\"".URL::page($page)."\">".$page->title."</a>";
             //Page has children
             $html .= "<ul class=\"dropdown-menu\" role=\"menu\">";
-            foreach($page->descendants()->get() as $subPage)
+            foreach($page->descendants()->where('status','published')->get() as $subPage)
             {
                 $html .= self::navWork($subPage,$options);
             }
