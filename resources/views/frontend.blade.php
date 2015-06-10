@@ -48,18 +48,19 @@
                 <section class="contact" style="background:#d0d0d2;">
                     <div class="container">
                         <div class="col-md-4">
-                            <!--<h1>Contact Form</h1>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Name" id="name" required data-validation-required-message="Please enter your name.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Email" id="email" required data-validation-required-message="Please enter your email address.">
-                                <p class="help-block text-danger"></p>
-                                <textarea id="message" class="form-control textar" placeholder="Message" required data-validation-required-message="Please enter a message."></textarea>
-                                <button class="btn btn-xl hang" type="submit">Send</button>
-                            </div>-->
-
+							<form action="/email.php">
+								<h1>Contact Form</h1>
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Name" id="name" name="name" required data-validation-required-message="Please enter your name.">
+									<p class="help-block text-danger"></p>
+								</div>
+								<div class="form-group">
+									<input type="email" class="form-control" placeholder="Email" id="email" name="email" required data-validation-required-message="Please enter your email address.">
+									<p class="help-block text-danger"></p>
+									<textarea id="message" class="form-control textar" placeholder="Message" name="message" required data-validation-required-message="Please enter a message."></textarea>
+									<button class="btn btn-xl hang" type="submit">Send</button>
+								</div>
+							</form>
                         </div><!--col-md-4-->
                         <div class="col-md-5"></div>
                         <div class="col-md-3">
