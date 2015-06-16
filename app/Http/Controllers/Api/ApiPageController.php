@@ -44,7 +44,7 @@ class ApiPageController extends Controller {
 	public function store(PageRequest $request)
 	{
         try{
-            if(Auth::user()->can('pages.create')) {
+            if(Auth::user()->can('page.create')) {
                 $page = Page::create($request->all());
             }
             return Response::json(array(
