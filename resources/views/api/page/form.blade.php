@@ -84,7 +84,7 @@
             </div><!-- /.box-header -->
             <div style="display: none;" class="box-body">
                 <div class="form-group">
-                    {!! Form::textarea('content',"",['class'=>"form-control widearea",'data-widearea'=>"enable",'id'=>"content"]) !!}
+                    {!! Form::textarea('content',isset($pageContent)?$pageContent:"<p>Default Page Content</p>",['class'=>"form-control widearea",'data-widearea'=>"enable",'id'=>"content"]) !!}
                 </div>
             </div>
         </div>

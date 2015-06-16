@@ -13,10 +13,10 @@ class PageRequest extends Request {
 	public function authorize()
 	{
         //|| Auth::user()->can('page.*')
-        if(Auth::user()->is('page.admin'))
+        //if(Auth::user()->is('page.admin'))
 		    return true;
-        else
-            return false;
+        //else
+        //    return false;
 	}
 
 	/**

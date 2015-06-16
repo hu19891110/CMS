@@ -11,10 +11,10 @@ class RoleRequest extends Request {
 	 */
 	public function authorize()
 	{
-        if(Auth::user()->is('user.admin') || Auth::user()->can('user.roles'))
+        //if(Auth::user()->is('user.admin') || Auth::user()->can('user.roles'))
             return true;
-        else
-            return false;
+        //else
+        //    return false;
 	}
 
 	/**

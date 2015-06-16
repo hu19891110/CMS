@@ -4,7 +4,7 @@
 </head>
 <body>
 {!! Form::open(['route'=>'api.page.store']) !!}
-    @include('api.page.form',['submitButtonText'=>'Create Rage'])
+    @include('api.page.form',['submitButtonText'=>'Create Page'])
 {!! Form::close() !!}
 
 @if($errors->any())
