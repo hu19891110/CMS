@@ -25,36 +25,7 @@ class AutocompleteController extends Controller {
                 }
                 break;
             case "page-owner":
-                dd(User::with(['permissions'=> function($q)
-                {
-                    $q->where('slug', 'page.owner');
-                }])->get());
-
-
-                User::select([
-                    'permissions.*',
-                    'permission_role.created_at as pivot_created_at',
-                    'permission_role.updated_at as pivot_updated_at'
-                ])->join('permission_role', 'permission_role.permission_id', '=', 'permissions.id')
-                    ->join('roles', 'roles.id', '=', 'permission_role.role_id')
-                    ->whereIn('roles.id', $roles)
-                    ->orWhere('roles.level', '<', $this->level())
-                    ->groupBy('permissions.id');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                foreach(User::search($q)->whereHas('getermissions',function($q){$q->where('slug','page.owner');})->get() as $user)
+                foreach(User::search($q)->limit(5)->get() as $user)
                 {
                     $response[$user->id] = ['id'=>$user->id,'username'=>$user->username];
                 }
