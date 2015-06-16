@@ -6,13 +6,12 @@ Please feel free to use it for your own project; The only request is you open a 
 
 ## Install
 For installation we assume that you have met the requirements for laravel 5.1
-Additionally, we assume you have installed and configured:  
+Additionally, we assume you have installed and configured:
+
 1. composer
-1. bowser
+1. bower
 
-
-
-asdfasdf
+Commands
 
 1. git clone git@github.com:DynamicCodeNinja/CMS.git ./
 1. sudo chmod -R o+w storage/

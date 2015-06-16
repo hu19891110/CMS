@@ -31,4 +31,5 @@
             }
         });
     </script>
+    @include('backend.page._partials.auto-complete-js')
 @endsection
