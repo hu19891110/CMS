@@ -1,15 +1,15 @@
 <?php namespace DCN;
 
 use Illuminate\Database\Eloquent\Model;
-use Bican\Roles\Traits\PermissionTrait;
-use Bican\Roles\Contracts\PermissionContract;
+use Bican\Roles\Traits\PermissionHasRelations;
+use Bican\Roles\Contracts\PermissionHasRelations as PermissionHasRelationsContract;
 use Venturecraft\Revisionable\RevisionableTrait;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
-class Permission extends \Bican\Roles\Models\Permission implements PermissionContract
+class Permission extends \Bican\Roles\Models\Permission implements PermissionHasRelationsContract
 {
 
-    use PermissionTrait, RevisionableTrait, SearchableTrait;
+    use PermissionHasRelations, RevisionableTrait, SearchableTrait;
 
     /**
      * Searchable rules.

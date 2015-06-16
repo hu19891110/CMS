@@ -1,4 +1,4 @@
-@permission('user.*')
+
     <li class="header">Auth</li>
     <!-- Optionally, you can add icons to the links -->
     <li class="treeview {{Active::routePattern('admin.users.*',"active")}}">
@@ -10,7 +10,7 @@
             @endpermission
         </ul>
     </li>
-    @permission('user.roles')
+    @permission("user.roles")
         <li class="treeview {{Active::routePattern('admin.roles.*',"active")}}">
             <a href="{{URL::route('admin.roles')}}"><i class='fa fa-user'></i> <span>Roles</span> <i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
@@ -20,9 +20,9 @@
         </li>
     @endpermission
     <li class="{{Active::route('admin.users.settings','active')}}"><a href="#"><i class='fa fa-gear'></i> <span>Settings</span></a></li>
-@endpermission
 
-@permission('page.*')
+
+
     <li class="header">Pages</li>
     <!-- Optionally, you can add icons to the links -->
     <li class="treeview {{Active::routePattern('admin.pages.*',"active")}}">
@@ -35,4 +35,3 @@
             <li class="{{Active::route('admin.pages.settings','active')}}"><a href="#"><i class='fa fa-gear'></i> <span>Settings</span></a></li>
         </ul>
     </li>
-@endpermission
