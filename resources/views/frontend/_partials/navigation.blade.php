@@ -3,7 +3,7 @@
     @permission('portal')
         <li> <a class="page-scroll"  href="{{URL::route('portal.dashboard')}}">Portal</a></li>
     @endpermission
-    @role('root|admin','one')
+    @role('root|admin')
         <li> <a class="page-scroll"  href="{{URL::route('admin.dashboard')}}">Admin</a></li>
     @endrole
     @if(Auth::check())
