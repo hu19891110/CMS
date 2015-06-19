@@ -60,6 +60,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     ];
 
     /**
+     * Date Attrabutes
+     *
+     * @var array
+     */
+    protected $dates = ['created_at','status_ts','updated_at','deleted_at'];
+
+    /**
      * Generate the hash for the new password
      *
      * @param $password

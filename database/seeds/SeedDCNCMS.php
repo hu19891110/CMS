@@ -4,6 +4,7 @@ use DCN\Page;
 use DCN\Permission;
 use DCN\Role;
 use DCN\User;
+use DCN\Settings;
 use Illuminate\Database\Seeder;
 
 class SeedDCNCMS extends Seeder
@@ -28,6 +29,16 @@ class SeedDCNCMS extends Seeder
                 'description'=>'Admin Users',
                 'level'=>999999999,
                 'permissionsArray'=>array()
+            ),
+            array(
+                'name' => 'Settings Admin',
+                'slug'=>'admin.settings',
+                'description'=>'Settings Management Admins',
+                'level'=>5000,
+                'permissionsArray'=>array(
+                    array('slug'=>'settings.auth', 'name' => 'Auth Settings', 'description'=>'Manage User, Role, and Auth Settings'),
+
+                )
             ),
             array(
                 'name' => 'User Admin',
@@ -165,6 +176,23 @@ class SeedDCNCMS extends Seeder
         {
             Page::create($page);
         }
+
+        /*
+         * Settings
+         */
+        $settings = array(
+            array(
+                'key'=>'publicSignup',
+                'value'=>false
+            )
+        );
+
+        foreach($settings as $setting)
+        {
+            Settings::create($setting);
+        }
+
+
 
     }
 

@@ -34,7 +34,7 @@
         $("#contentarea").contentbuilder({
             zoom: 1,
             snippetOpen: true,
-            snippetFile: '/assets/vendor/ContentBuilder/assets/minimalist-basic/snippets.html'
+            snippetFile: '/assets/vendor/ContentBuilder/assets/cmit-default/snippets.html'
         });
 
         $('#page_content_box').hide();

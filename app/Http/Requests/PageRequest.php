@@ -13,7 +13,7 @@ class PageRequest extends Request {
 	public function authorize()
 	{
 
-        if(Auth::user()->is('page.admin') || Auth::user()->can('page.*'))
+        if(Auth::user()->is('admin.page') || Auth::user()->can('page.*'))
 		    return true;
         else
             return false;

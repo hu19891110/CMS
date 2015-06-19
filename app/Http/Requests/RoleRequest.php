@@ -1,4 +1,6 @@
-<?php namespace DCN\Http\Requests;
+<?php
+
+namespace DCN\Http\Requests;
 
 use DCN\Http\Requests\Request;
 
@@ -11,7 +13,7 @@ class RoleRequest extends Request {
 	 */
 	public function authorize()
 	{
-        if(Auth::user()->is('user.admin') || Auth::user()->can('user.roles'))
+        if(Auth::user()->is('admin.user') || Auth::user()->can('user.roles'))
             return true;
         else
             return false;

@@ -1,9 +1,18 @@
 <?php namespace DCN\Providers;
 
+use DCN\Settings;
+use Config;
+use Schema;
 use Illuminate\Support\ServiceProvider;
 
 class ConfigServiceProvider extends ServiceProvider {
 
+    public function boot()
+    {
+        if(Schema::hasTable('settings'))
+            foreach(Settings::all() as $setting)
+                Config::set($setting->key, $setting->value);
+    }
 	/**
 	 * Overwrite any vendor / package configuration.
 	 *
@@ -15,9 +24,9 @@ class ConfigServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		config([
-			//
-		]);
+        config([
+            //
+        ]);
 	}
 
 }

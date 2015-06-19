@@ -87,51 +87,62 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'], function() {
     ]);
 
     /*
-     * Admin - Users Routes
-     */
-    Route::group(['prefix'=>'users'], function() {
+    * Admin - Auth Routes
+    */
+    Route::group(['prefix'=>'auth'], function() {
+        /*
+         * Admin - Users Routes
+         */
+        Route::group(['prefix' => 'users'], function () {
 
-        Route::get('/', [
-            'uses'=>'UserController@getIndex',
-            'as'=>'admin.users'
-        ]);
+            Route::get('/', [
+                'uses' => 'UserController@getIndex',
+                'as' => 'admin.users'
+            ]);
 
-        Route::get('/create', [
-            'uses'=>'UserController@getCreate',
-            'as'=>'admin.users.create'
-        ]);
+            Route::get('/create', [
+                'uses' => 'UserController@getCreate',
+                'as' => 'admin.users.create'
+            ]);
 
-        Route::get('/list', [
-            'uses'=>'UserController@getList',
-            'as'=>'admin.users.list'
-        ]);
+            Route::get('/list', [
+                'uses' => 'UserController@getList',
+                'as' => 'admin.users.list'
+            ]);
 
-        Route::get('/edit/{user}', [
-            'uses'=>'UserController@getEdit',
-            'as'=>'admin.users.edit'
+            Route::get('/edit/{user}', [
+                'uses' => 'UserController@getEdit',
+                'as' => 'admin.users.edit'
+            ]);
+        });
+        /*
+         * Admin - Roles Routes
+         */
+        Route::group(['prefix' => 'roles'], function () {
+            Route::get('/', [
+                'uses' => 'RoleController@getIndex',
+                'as' => 'admin.roles'
+            ]);
+            Route::get('/create', [
+                'uses' => 'RoleController@getCreate',
+                'as' => 'admin.roles.create'
+            ]);
+            Route::get('/list', [
+                'uses' => 'RoleController@getList',
+                'as' => 'admin.roles.list'
+            ]);
+            Route::get('/edit/{role}', [
+                'uses' => 'RoleController@getEdit',
+                'as' => 'admin.roles.edit'
+            ]);
+        });
+        Route::get('/settings', [
+            'uses' => 'SettingsController@getAuth',
+            'as' => 'admin.settings.auth'
         ]);
-    });
-    /*
-     * Admin - Roles Routes
-     */
-    Route::group(['prefix'=>'roles'], function() {
-
-        Route::get('/', [
-            'uses'=>'RoleController@getIndex',
-            'as'=>'admin.roles'
-        ]);
-        Route::get('/create', [
-            'uses'=>'RoleController@getCreate',
-            'as'=>'admin.roles.create'
-        ]);
-        Route::get('/list', [
-            'uses'=>'RoleController@getList',
-            'as'=>'admin.roles.list'
-        ]);
-
-        Route::get('/edit/{role}', [
-            'uses'=>'RoleController@getEdit',
-            'as'=>'admin.roles.edit'
+        Route::post('/settings', [
+            'uses' => 'SettingsController@postAuth',
+            'as' => 'admin.settings.auth.post'
         ]);
     });
     /*
@@ -166,26 +177,11 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'], function() {
 /*
  * Layout Routes
  */
-
-Route::get('/frontend', function(){
-    $pages = \DCN\Page::all();
-    return view('frontend',compact('pages'));
-});
 Route::get('/guest-only',function(){
     return view('frontend',['content'=>'<h1>Sorry Guests Only!</h1>']);
 });
-Route::get('/backend', function(){
-    return view('backend');
-});
-Route::get('/portal', function(){
-    return view('portal');
-});
-Route::get('/editor', function(){
-    return view('editor');
-});
-Route::get('/example', function(){
-    return \Illuminate\Support\Facades\Response::json(['id'=>"OK"]);
-});
+
+
 
 
 /*

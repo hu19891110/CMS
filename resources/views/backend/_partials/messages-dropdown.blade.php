@@ -1,10 +1,10 @@
 <!-- Menu toggle button -->
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
     <i class="fa fa-envelope-o"></i>
-    <span class="label label-success">5</span>
+    <span class="label label-success">0</span>
 </a>
 <ul class="dropdown-menu">
-    <li class="header">You have 5 messages</li>
+    <li class="header">You have 0 messages</li>
     <li>
         <!-- inner menu: contains the messages -->
         <ul class="menu">
@@ -20,7 +20,7 @@
                         <small><i class="fa fa-clock-o"></i> 14 mins</small>
                     </h4>
                     <!-- The message -->
-                    <p>Why not buy a new awesome theme?</p>
+                    <p>Still working on messages</p>
                 </a>
             </li><!-- end message -->
         </ul><!-- /.menu -->

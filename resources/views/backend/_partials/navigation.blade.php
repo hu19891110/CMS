@@ -19,7 +19,7 @@
             </ul>
         </li>
     @endpermission
-    <li class="{{Active::route('admin.users.settings','active')}}"><a href="#"><i class='fa fa-gear'></i> <span>Settings</span></a></li>
+    <li class="{{Active::route('admin.settings.auth','active')}}"><a href="{{URL::route('admin.settings.auth')}}"><i class='fa fa-gear'></i> <span>Settings</span></a></li>
 
 
 
