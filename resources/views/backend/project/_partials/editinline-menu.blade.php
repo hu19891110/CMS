@@ -26,8 +26,17 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+{!! HTML::script( asset('/assets/vendor/ContentBuilder/scripts/contentbuilder.js') ) !!}
+{!! HTML::script( asset('/assets/vendor/ContentBuilder/scripts/saveimages.js') ) !!}
 <script type="text/javascript">
     $(document).ready(function() {
+
+        $("#contentarea").contentbuilder({
+            zoom: 1,
+            snippetOpen: true,
+            snippetFile: '/assets/vendor/ContentBuilder/assets/cmit-default/snippets.html'
+        });
+
         $('#page_content_box').hide();
         $('#page_actions_box').hide();
         $( "#owner_name" ).autocomplete({

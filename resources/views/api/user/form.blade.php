@@ -69,7 +69,7 @@
                         <div class="box-body">
                             @if(isset($user))
                                 <ul>
-                                    @foreach($user->rolePermissions()->get() as $permission)
+                                    @foreach($user->rolePermissions() as $permission)
                                         <li>{{$permission->name}}</li>
                                     @endforeach
                                 </ul>

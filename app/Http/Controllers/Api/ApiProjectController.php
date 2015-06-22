@@ -1,55 +1,56 @@
-<?php namespace DCN\Http\Controllers\Api;
+<?php
 
-use Auth;
-use DCN\Http\Requests;
-use DCN\Http\Controllers\Controller;
+namespace DCN\Http\Controllers\Api;
 
-use DCN\Http\Requests\PageRequest;
-use DCN\Page;
+use DCN\Project;
 use Illuminate\Http\Request;
+
+use DCN\Http\Requests;
+use DCN\Http\Requests\ProjectRequest;
+use DCN\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
 
-class ApiPageController extends Controller {
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-        $pages = Page::paginate(10);
+class ApiProjectController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $projects = Project::paginate(10);
         return Response::json(array(
             'success' => true,
-            'pages'   => $pages->toArray()
+            'projects'   => $projects->toArray()
         ));
-	}
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-        return view('api.page.create');
-	}
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return view('api.project.create');
+    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param PageRequest $request
+     * @param ProjectRequest $request
      * @return Response
      */
-	public function store(PageRequest $request)
-	{
+    public function store(ProjectRequest $request)
+    {
         try{
-            if(Auth::user()->can('page.create')) {
-                $page = Page::create($request->all());
+            if(Auth::user()->can('project.create')) {
+                $project = Project::create($request->all());
             }
             return Response::json(array(
                 'success' => true,
-                'page'   => $page
+                'project'   => $project
             ));
         }
         catch(\Exception $e){
@@ -58,52 +59,52 @@ class ApiPageController extends Controller {
                 'error'   => $e
             ));
         }
-	}
+    }
 
     /**
      * Display the specified resource.
      *
-     * @param Page $page
+     * @param Project $project
      * @return Response
      * @internal param int $id
      */
-	public function show(Page $page)
-	{
+    public function show(Project $project)
+    {
         return Response::json(array(
             'success' => true,
-            'page'   => $page
+            'project'   => $project
         ));
-	}
+    }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Page $page
+     * @param Project $project
      * @return Response
      * @internal param int $id
      */
-	public function edit(Page $page)
-	{
-        return view('api.page.edit', compact('page'));
-	}
+    public function edit(Project $project)
+    {
+        return view('api.project.edit', compact('project'));
+    }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Page $page
-     * @param PageRequest $request
+     * @param Project $project
+     * @param ProjectRequest $request
      * @return Response
      * @internal param int $id
      */
-	public function update(Page $page, PageRequest $request)
-	{
+    public function update(Project $project, ProjectRequest $request)
+    {
         try
         {
-            $page->update($request->all());
+            $project->update($request->all());
 
             return Response::json(array(
                 'success' => true,
-                'page'   => $page
+                'project'   => $project
             ));
         }
         catch(\Exception $e)
@@ -113,19 +114,19 @@ class ApiPageController extends Controller {
                 'error'   => $e
             ));
         }
-	}
+    }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Page $page
+     * @param Project $project
      * @return Response
      * @internal param int $id
      */
-	public function destroy(Page $page)
-	{
+    public function destroy(Project $project)
+    {
         try{
-            $page->delete();
+            $project->delete();
             return Response::json(array(
                 'completed' => true
             ));
@@ -136,6 +137,5 @@ class ApiPageController extends Controller {
                 'error'   => $e
             ));
         }
-	}
-
+    }
 }

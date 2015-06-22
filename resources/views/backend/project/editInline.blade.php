@@ -2,6 +2,8 @@
 @section('title','Admin - Page - Edit')
 @section('subtitle',$page->slug)
 @section('css')
+    {!! HTML::style( asset('/assets/vendor/ContentBuilder/scripts/contentbuilder.css') ) !!}
+    {!! HTML::style( asset('/assets/vendor/ContentBuilder/assets/minimalist-basic/content.css') ) !!}
     {!! HTML::style( asset('assets/vendor/jquery-ui/themes/base/jquery-ui.css') ) !!}
     <style>
         #parent{
@@ -27,6 +29,5 @@
     </div>
 @stop
 @section('javascript')
-    @include('vendor.contentBuilder')
     @include('backend.page._partials.editinline-menu')
 @endsection

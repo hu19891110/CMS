@@ -21,6 +21,7 @@ Route::group(['namespace'=>'Api','prefix'=>'api'], function(){
     Route::resource('user','ApiUserController');
     Route::resource('role','ApiRoleController');
     Route::resource('page','ApiPageController');
+    Route::resource('project','ApiProjectController');
 
     Route::get('/autocomplete/{type}', [
         'uses'=>'AutocompleteController@getResults',
@@ -60,7 +61,7 @@ Route::group(['prefix'=>'auth'],function(){
 /*
  * Portal Routes
  */
-Route::group(['namespace'=>'Portal','prefix'=>'portal'], function() {
+Route::group(['namespace'=>'Portal','prefix'=>'portal', 'middleware' => 'role:member'], function() {
     /*
      * Index
      *
@@ -75,7 +76,7 @@ Route::group(['namespace'=>'Portal','prefix'=>'portal'], function() {
 /*
  * Admin Routes
  */
-Route::group(['namespace'=>'Admin','prefix'=>'admin'], function() {
+Route::group(['namespace'=>'Admin','prefix'=>'admin', 'middleware' => 'role:root|admin|admin.*'], function() {
     /*
      * Index
      *
@@ -89,7 +90,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'], function() {
     /*
     * Admin - Auth Routes
     */
-    Route::group(['prefix'=>'auth'], function() {
+    Route::group(['prefix'=>'auth', 'middleware' => 'role:root|admin|admin.*'], function() {
         /*
          * Admin - Users Routes
          */
@@ -138,17 +139,19 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'], function() {
         });
         Route::get('/settings', [
             'uses' => 'SettingsController@getAuth',
+            'middleware' => 'role:root|admin|admin.settings',
             'as' => 'admin.settings.auth'
         ]);
         Route::post('/settings', [
             'uses' => 'SettingsController@postAuth',
+            'middleware' => 'role:root|admin|admin.settings',
             'as' => 'admin.settings.auth.post'
         ]);
     });
     /*
      * Admin - Page Routes
      */
-    Route::group(['prefix'=>'pages'], function() {
+    Route::group(['prefix'=>'pages', 'middleware' => 'role:root|admin|admin.page'], function() {
 
         Route::get('/', [
             'uses'=>'PageController@getIndex',
@@ -172,6 +175,33 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'], function() {
             'as'=>'admin.pages.edit.inline'
         ]);
     });
+    /*
+     * Admin - Project Routes
+     */
+    Route::group(['prefix'=>'projects', 'middleware' => 'role:root|admin|admin.projects'], function() {
+
+        Route::get('/', [
+            'uses'=>'ProjectController@getIndex',
+            'as'=>'admin.projects'
+        ]);
+        Route::get('/create', [
+            'uses'=>'ProjectController@getCreate',
+            'as'=>'admin.projects.create'
+        ]);
+        Route::get('/list', [
+            'uses'=>'ProjectController@getList',
+            'as'=>'admin.projects.list'
+        ]);
+
+        Route::get('/edit/{page}', [
+            'uses'=>'ProjectController@getEdit',
+            'as'=>'admin.projects.edit'
+        ]);
+        Route::get('/edit/{page}/inline', [
+            'uses'=>'ProjectController@getEditInline',
+            'as'=>'admin.projects.edit.inline'
+        ]);
+    });
 });
 
 /*
@@ -179,6 +209,10 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'], function() {
  */
 Route::get('/guest-only',function(){
     return view('frontend',['content'=>'<h1>Sorry Guests Only!</h1>']);
+});
+
+Route::get('/projects',function(){
+    return view('frontend.project',['project'=>\DCN\Project::first()]);
 });
 
 

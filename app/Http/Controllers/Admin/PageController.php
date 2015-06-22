@@ -8,7 +8,8 @@ use DCN\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class PageController extends Controller {
+class PageController extends Controller
+{
 
     public function __construct()
     {

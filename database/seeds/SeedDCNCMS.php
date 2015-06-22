@@ -21,6 +21,7 @@ class SeedDCNCMS extends Seeder
                 'slug'=>'root',
                 'description'=>'Root/God Users',
                 'level'=>1000000000,
+                'parent_id'=>NULL,
                 'permissionsArray'=>array()
             ),
             array(
@@ -28,6 +29,7 @@ class SeedDCNCMS extends Seeder
                 'slug'=>'admin',
                 'description'=>'Admin Users',
                 'level'=>999999999,
+                'parent_id'=>1,
                 'permissionsArray'=>array()
             ),
             array(
@@ -35,8 +37,11 @@ class SeedDCNCMS extends Seeder
                 'slug'=>'admin.settings',
                 'description'=>'Settings Management Admins',
                 'level'=>5000,
+                'parent_id'=>2,
                 'permissionsArray'=>array(
-                    array('slug'=>'settings.auth', 'name' => 'Auth Settings', 'description'=>'Manage User, Role, and Auth Settings'),
+                    array('slug'=>'settings.auth',      'name' => 'Auth Settings',                  'description'=>'Manage User, Role, and Auth Settings'),
+                    array('slug'=>'settings.page',      'name' => 'Page Settings',                  'description'=>'Manage Page Settings'),
+                    array('slug'=>'settings.project',   'name' => 'Project Settings',               'description'=>'Manage Project Settings'),
 
                 )
             ),
@@ -45,17 +50,19 @@ class SeedDCNCMS extends Seeder
                 'slug'=>'admin.user',
                 'description'=>'User Management Admins',
                 'level'=>5000,
+                'parent_id'=>2,
                 'permissionsArray'=>array(
-                    array('slug'=>'user.create', 'name' => 'Create Users', 'description'=>'People with this permission can create new users'),
-                    array('slug'=>'user.edit', 'name' => 'Edit Users', 'description'=>'People with this permission can Edit existing users'),
-                    array('slug'=>'user.lock', 'name' => 'Lock Users', 'description'=>'People with this permission can temporarily lock users out of the website'),
-                    array('slug'=>'user.unlock', 'name' => 'Unlock Users', 'description'=>'People with this permission can unlock users to allow them access to the website'),
-                    array('slug'=>'user.ban', 'name' => 'Ban Users', 'description'=>'People with this permission can permanently ban users from the website'),
-                    array('slug'=>'user.unban', 'name' => 'Unban Users', 'description'=>'People with this permission can unban users to allow them access to the website'),
-                    array('slug'=>'user.delete', 'name' => 'Delete Users', 'description'=>'People with this permission can delete users'),
-                    array('slug'=>'user.reset', 'name' => 'Reset Users Password', 'description'=>'People with this permission can reset users passwords'),
-                    array('slug'=>'user.roles', 'name' => 'Manage User Roles', 'description'=>'People with this permission can assign and edit roles assigned to users'),
-                    array('slug'=>'user.permissions', 'name' => 'Manage User Permissions', 'description'=>'People with this permission can assign and edit the permissions assigned to users'),
+                    array('slug'=>'user.create',        'name' => 'Create Users',                   'description'=>'People with this permission can create new users'),
+                    array('slug'=>'user.edit',          'name' => 'Edit Users',                     'description'=>'People with this permission can Edit existing users'),
+                    array('slug'=>'user.lock',          'name' => 'Lock Users',                     'description'=>'People with this permission can temporarily lock users out of the website'),
+                    array('slug'=>'user.unlock',        'name' => 'Unlock Users',                   'description'=>'People with this permission can unlock users to allow them access to the website'),
+                    array('slug'=>'user.ban',           'name' => 'Ban Users',                      'description'=>'People with this permission can permanently ban users from the website'),
+                    array('slug'=>'user.unban',         'name' => 'Unban Users',                    'description'=>'People with this permission can unban users to allow them access to the website'),
+                    array('slug'=>'user.delete',        'name' => 'Delete Users',                   'description'=>'People with this permission can delete users'),
+                    array('slug'=>'user.reset',         'name' => 'Reset Users Password',           'description'=>'People with this permission can reset users passwords'),
+                    array('slug'=>'user.roles',         'name' => 'Manage User Roles',              'description'=>'People with this permission can assign and edit roles assigned to users'),
+                    array('slug'=>'user.permissions',   'name' => 'Manage User Permissions',        'description'=>'People with this permission can assign and edit the permissions assigned to users'),
+                    array('slug'=>'user.manage',        'name' => 'Manage Users',                   'description'=>'People with this permission can manage users'),
 
                 )
             ),
@@ -64,15 +71,32 @@ class SeedDCNCMS extends Seeder
                 'slug'=>'admin.page',
                 'description'=>'Page Management Admins',
                 'level'=>5000,
+                'parent_id'=>2,
                 'permissionsArray'=>array(
-                    array('slug'=>'page.create', 'name' => 'Create Website Pages', 'description'=>'People with this permission can create new website pages'),
-                    array('slug'=>'page.edit', 'name' => 'Edit Website Pages', 'description'=>'People with this permission can edit website pages'),
-                    array('slug'=>'page.publish', 'name' => 'Publish Website Pages', 'description'=>'People with this permission can publish website pages'),
-                    array('slug'=>'page.unpublish', 'name' => 'Unpublish Website Pages', 'description'=>'People with this permission can unpublish website pages'),
-                    array('slug'=>'page.review', 'name' => 'Review Website Pages', 'description'=>'People with this permission can review and edit website pages before they are published'),
-                    array('slug'=>'page.delete', 'name' => 'Delete Website Pages', 'description'=>'People with this permission can delete website pages'),
-                    array('slug'=>'page.owner', 'name' => 'Own Website Pages', 'description'=>'People with this permission can be own website changes and be notified of any and all changes'),
-                    array('slug'=>'page.system', 'name' => 'Manage System Website Pages', 'description'=>'People with this permission can create and edit system pages'),
+                    array('slug'=>'page.create',        'name' => 'Create Website Pages',           'description'=>'People with this permission can create new website pages'),
+                    array('slug'=>'page.edit',          'name' => 'Edit Website Pages',             'description'=>'People with this permission can edit website pages'),
+                    array('slug'=>'page.publish',       'name' => 'Publish Website Pages',          'description'=>'People with this permission can publish website pages'),
+                    array('slug'=>'page.unpublish',     'name' => 'Unpublish Website Pages',        'description'=>'People with this permission can unpublish website pages'),
+                    array('slug'=>'page.review',        'name' => 'Review Website Pages',           'description'=>'People with this permission can review and edit website pages before they are published'),
+                    array('slug'=>'page.delete',        'name' => 'Delete Website Pages',           'description'=>'People with this permission can delete website pages'),
+                    array('slug'=>'page.owner',         'name' => 'Own Website Pages',              'description'=>'People with this permission can be own website changes and be notified of any and all changes'),
+                    array('slug'=>'page.system',        'name' => 'Manage System Website Pages',    'description'=>'People with this permission can create and edit system pages'),
+                )
+            ),
+            array(
+                'name' => 'Project Admin',
+                'slug'=>'admin.project',
+                'description'=>'Project Management Admins',
+                'level'=>5000,
+                'parent_id'=>2,
+                'permissionsArray'=>array(
+                    array('slug'=>'project.create',        'name' => 'Create Projects',           'description'=>'People with this permission can create new projects'),
+                    array('slug'=>'project.edit',          'name' => 'Edit Projects',             'description'=>'People with this permission can edit projects'),
+                    array('slug'=>'project.publish',       'name' => 'Publish Projects',          'description'=>'People with this permission can publish projects'),
+                    array('slug'=>'project.unpublish',     'name' => 'Unpublish Projects',        'description'=>'People with this permission can unpublish projects'),
+                    array('slug'=>'project.review',        'name' => 'Review Projects',           'description'=>'People with this permission can review and edit projects before they are published'),
+                    array('slug'=>'project.delete',        'name' => 'Delete Projects',           'description'=>'People with this permission can delete projects'),
+                    array('slug'=>'project.owner',         'name' => 'Own Projects',              'description'=>'People with this permission can be own project changes and be notified of any and all changes'),
                 )
             ),
             array(
@@ -80,8 +104,9 @@ class SeedDCNCMS extends Seeder
                 'slug'=>'member',
                 'description'=>'Default Group For All Users',
                 'level'=>1,
+                'parent_id'=>1,
                 'permissionsArray'=>array(
-                    array('slug'=>'portal', 'name' => 'Portal Access', 'description'=>'People with this permission can access the web portal'),
+                    array('slug'=>'portal',             'name' => 'Portal Access',                  'description'=>'People with this permission can access the web portal'),
                 )
             ),
         );

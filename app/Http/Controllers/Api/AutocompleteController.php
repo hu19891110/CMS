@@ -6,8 +6,10 @@ use DCN\Http\Controllers\Controller;
 use DCN\Permission;
 use DCN\Role;
 use DCN\User;
+use DCN\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Response;
 
 class AutocompleteController extends Controller {
 
@@ -45,7 +47,7 @@ class AutocompleteController extends Controller {
             default:
                 break;
         }
-        return \Response::json($response);
+        return Response::json($response);
     }
 
 }

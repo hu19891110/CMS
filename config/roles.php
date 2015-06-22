@@ -21,12 +21,45 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you can change the slug separator. This is very important in matter
-    | of magic method __call() and also a SlugableTrait. The default value
+    | of magic method __call() and also a `Slugable` trait. The default value
     | is a dot.
     |
     */
 
     'separator' => '.',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Role Hierarchy Type
+    |--------------------------------------------------------------------------
+    |
+    | By default Levels are used. I.E. anyone in level 100 roles will get any roles
+    | that are level 1-99 as well. Switch this to nested and roles will be inherited
+    | based on their parent role instead of their level.
+    |
+    | Options:
+    | level - level based inheritance
+    | nested - parent based inheritance
+    |
+    */
+
+    'hierarchy' => 'nested',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Models
+    |--------------------------------------------------------------------------
+    |
+    | If you want, you can replace default models from this package by models
+    | you created. Have a look at `Bican\Roles\Models\Role` model and
+    | `Bican\Roles\Models\Permission` model. 
+    |
+    */
+
+    'models' => [
+        'role' => Bican\Roles\Models\Role::class,
+        'permission' => Bican\Roles\Models\Permission::class,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -44,9 +77,9 @@ return [
         'enabled' => false,
 
         'options' => [
-            'is'        => true,
-            'can'       => true,
-            'allowed'   => true,
+            'is' => true,
+            'can' => true,
+            'allowed' => true,
         ],
 
     ],

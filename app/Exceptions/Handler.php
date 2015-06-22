@@ -1,5 +1,6 @@
 <?php namespace DCN\Exceptions;
 
+use Bican\Roles\Exceptions\AccessDeniedException;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -36,6 +37,11 @@ class Handler extends ExceptionHandler {
 	 */
 	public function render($request, Exception $e)
 	{
+        if ($e instanceof AccessDeniedException) {
+            // you can for example flash message, redirect...
+            return redirect('/')->withErrors('Access Denied');;
+        }
+
 		return parent::render($request, $e);
 	}
 
