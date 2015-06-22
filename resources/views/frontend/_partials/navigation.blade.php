@@ -1,8 +1,8 @@
 <ul class="nav navbar-nav  pull-right">
     {!! Page::navigation() !!}
-    @permission('portal')
+    @role('member')
         <li> <a class="page-scroll"  href="{{URL::route('portal.dashboard')}}">Portal</a></li>
-    @endpermission
+    @endrole
     @role('root|admin|admin.*')
         <li> <a class="page-scroll"  href="{{URL::route('admin.dashboard')}}">Admin</a></li>
     @endrole

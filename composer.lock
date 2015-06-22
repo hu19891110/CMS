@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8c255f30176e57f8dc5ed28c47398146",
+    "hash": "c233bcdbcd24da5e22217190ef52d2bf",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -177,49 +177,6 @@
                 "nested set"
             ],
             "time": "2015-03-04 12:07:54"
-        },
-        {
-            "name": "bican/roles",
-            "version": "2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/romanbican/roles.git",
-                "reference": "b5a70d6429e1ed16407aae2a0ccbcb3bf197eba8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/romanbican/roles/zipball/b5a70d6429e1ed16407aae2a0ccbcb3bf197eba8",
-                "reference": "b5a70d6429e1ed16407aae2a0ccbcb3bf197eba8",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~5.0",
-                "php": ">=5.5.9"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Bican\\Roles": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Roman Bičan",
-                    "email": "romanbican@seznam.cz"
-                }
-            ],
-            "description": "Powerful package for handling roles and permissions in Laravel 5.",
-            "keywords": [
-                "laravel",
-                "laravel5",
-                "permissions",
-                "roles"
-            ],
-            "time": "2015-06-21 15:41:18"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -448,6 +405,51 @@
                 "utils"
             ],
             "time": "2015-02-10 06:19:18"
+        },
+        {
+            "name": "dcn/rbac",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DynamicCodeNinja/RBAC.git",
+                "reference": "6d05c04fb84c40e8ceb4a73489e3dae556d887c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DynamicCodeNinja/RBAC/zipball/6d05c04fb84c40e8ceb4a73489e3dae556d887c9",
+                "reference": "6d05c04fb84c40e8ceb4a73489e3dae556d887c9",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "DCN\\RBAC": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Will G",
+                    "email": "willg@cloudmy.it"
+                }
+            ],
+            "description": "Powerful RBAC package for Laravel 5.1",
+            "keywords": [
+                "auth",
+                "illuminate",
+                "laravel",
+                "permissions",
+                "rbac",
+                "roles"
+            ],
+            "time": "2015-06-22 18:38:47"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

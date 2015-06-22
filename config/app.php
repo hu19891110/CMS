@@ -143,7 +143,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Illuminate\Html\HtmlServiceProvider::class,
-        Bican\Roles\RolesServiceProvider::class,
+        DCN\RBAC\RBACServiceProvider::class,
         Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
         Baum\Providers\BaumServiceProvider::class,
         HieuLe\Active\ActiveServiceProvider::class,

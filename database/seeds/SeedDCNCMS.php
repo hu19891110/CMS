@@ -20,24 +20,24 @@ class SeedDCNCMS extends Seeder
                 'name' => 'Root',
                 'slug'=>'root',
                 'description'=>'Root/God Users',
-                'level'=>1000000000,
-                //'parent_id'=>NULL,
+                //'level'=>1000000000,
+                'parent_id'=>NULL,
                 'permissionsArray'=>array()
             ),
             array(
                 'name' => 'Admin',
                 'slug'=>'admin',
                 'description'=>'Admin Users',
-                'level'=>999999999,
-                //'parent_id'=>1,
+                //'level'=>999999999,
+                'parent_id'=>1,
                 'permissionsArray'=>array()
             ),
             array(
                 'name' => 'Settings Admin',
                 'slug'=>'admin.settings',
                 'description'=>'Settings Management Admins',
-                'level'=>5000,
-                //'parent_id'=>2,
+                //'level'=>5000,
+                'parent_id'=>2,
                 'permissionsArray'=>array(
                     array('slug'=>'settings.auth',      'name' => 'Auth Settings',                  'description'=>'Manage User, Role, and Auth Settings'),
                     array('slug'=>'settings.page',      'name' => 'Page Settings',                  'description'=>'Manage Page Settings'),
@@ -49,8 +49,8 @@ class SeedDCNCMS extends Seeder
                 'name' => 'User Admin',
                 'slug'=>'admin.user',
                 'description'=>'User Management Admins',
-                'level'=>5000,
-                //'parent_id'=>2,
+                //'level'=>5000,
+                'parent_id'=>2,
                 'permissionsArray'=>array(
                     array('slug'=>'user.create',        'name' => 'Create Users',                   'description'=>'People with this permission can create new users'),
                     array('slug'=>'user.edit',          'name' => 'Edit Users',                     'description'=>'People with this permission can Edit existing users'),
@@ -70,8 +70,8 @@ class SeedDCNCMS extends Seeder
                 'name' => 'Page Admin',
                 'slug'=>'admin.page',
                 'description'=>'Page Management Admins',
-                'level'=>5000,
-                //'parent_id'=>2,
+                //'level'=>5000,
+                'parent_id'=>2,
                 'permissionsArray'=>array(
                     array('slug'=>'page.create',        'name' => 'Create Website Pages',           'description'=>'People with this permission can create new website pages'),
                     array('slug'=>'page.edit',          'name' => 'Edit Website Pages',             'description'=>'People with this permission can edit website pages'),
@@ -87,8 +87,8 @@ class SeedDCNCMS extends Seeder
                 'name' => 'Project Admin',
                 'slug'=>'admin.project',
                 'description'=>'Project Management Admins',
-                'level'=>5000,
-                //'parent_id'=>2,
+                //'level'=>5000,
+                'parent_id'=>2,
                 'permissionsArray'=>array(
                     array('slug'=>'project.create',        'name' => 'Create Projects',           'description'=>'People with this permission can create new projects'),
                     array('slug'=>'project.edit',          'name' => 'Edit Projects',             'description'=>'People with this permission can edit projects'),
@@ -103,8 +103,8 @@ class SeedDCNCMS extends Seeder
                 'name' => 'Member',
                 'slug'=>'member',
                 'description'=>'Default Group For All Users',
-                'level'=>1,
-                //'parent_id'=>1,
+                //'level'=>1,
+                'parent_id'=>1,
                 'permissionsArray'=>array(
                     array('slug'=>'portal',             'name' => 'Portal Access',                  'description'=>'People with this permission can access the web portal'),
                 )

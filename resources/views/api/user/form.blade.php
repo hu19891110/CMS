@@ -45,16 +45,13 @@
                             <h3 class="box-title">Roles</h3>
                         </div><!-- /.box-header -->
                         <div class="box-body">
-                            @foreach($roles as $level => $levelRoles)
-                                <label>Roles in Level: {{$level}}</label>
-                                @foreach($levelRoles as $role)
-                                    <div class="checkbox">
-                                        <label>
-                                            {!! Form::checkbox('roles[]', $role->slug, (isset($user)&&$user->is($role->slug) ? true : false)) !!}
-                                            {{$role->name}}
-                                        </label>
-                                    </div>
-                                @endforeach
+                            @foreach($roles as $role)
+                                <div class="checkbox">
+                                    <label>
+                                        {!! Form::checkbox('roles[]', $role->slug, (isset($user)&&$user->is($role->slug) ? true : false)) !!}
+                                        {{$role->name}}
+                                    </label>
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -69,7 +66,7 @@
                         <div class="box-body">
                             @if(isset($user))
                                 <ul>
-                                    @foreach($user->rolePermissions() as $permission)
+                                    @foreach($user->rolePermissions as $permission)
                                         <li>{{$permission->name}}</li>
                                     @endforeach
                                 </ul>

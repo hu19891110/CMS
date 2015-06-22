@@ -3,9 +3,9 @@
     <head>
         <meta charset="utf-8">
         <title>CloudMyIT</title>
-        {!! HTML::style( asset('css/frontend.css') ) !!}
-        {!! HTML::style( asset('/assets/vendor/ContentBuilder/assets/minimalist-basic/content.css') ) !!}
         @yield('css')
+        {!! HTML::style( asset('/assets/DCNCMS-ContentBuilder/content.css') ) !!}
+        {!! HTML::style( asset('css/frontend.css') ) !!}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     </head>
 
