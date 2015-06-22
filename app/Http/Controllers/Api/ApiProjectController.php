@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Response;
 class ApiProjectController extends Controller
 {
     /**
+     * Construction Method
+     *
+     * Middleware is assigned here
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:project.*');
+        $this->middleware('permission:project.create',['only'=>['create','store']]);
+        $this->middleware('permission:project.edit|project.publish|project.unpublish',['only'=>['edit','update']]);
+        $this->middleware('permission:project.delete',['only'=>['destroy']]);
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return Response

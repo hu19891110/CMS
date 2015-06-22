@@ -10,7 +10,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class ApiRoleController extends Controller {
-
+    /**
+     * Construction Method
+     *
+     * Middleware is assigned here
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:user.roles');
+    }
 	/**
 	 * Display a listing of the resource.
 	 *

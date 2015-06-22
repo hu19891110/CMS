@@ -11,6 +11,19 @@ use Illuminate\Support\Facades\Response;
 
 class ApiPageController extends Controller {
 
+    /**
+     * Construction Method
+     *
+     * Middleware is assigned here
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:page.*');
+        $this->middleware('permission:page.create',['only'=>['create','store']]);
+        $this->middleware('permission:page.edit|page.publish|page.unpublish',['only'=>['edit','update']]);
+        $this->middleware('permission:page.delete',['only'=>['destroy']]);
+    }
+
 	/**
 	 * Display a listing of the resource.
 	 *
