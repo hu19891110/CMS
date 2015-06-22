@@ -14,7 +14,9 @@ return [
 	*/
 
 	'paths' => [
+        realpath(base_path('site-templates')),
 		realpath(base_path('resources/views'))
+
 	],
 
 	/*
