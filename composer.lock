@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "79ef0d6e896489edad6fa6571717e04d",
+    "hash": "8c255f30176e57f8dc5ed28c47398146",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -180,16 +180,16 @@
         },
         {
             "name": "bican/roles",
-            "version": "2.0.2",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/romanbican/roles.git",
-                "reference": "b2b09c68d6a91a7e62ee60d65824a53fcfda2dbf"
+                "reference": "b5a70d6429e1ed16407aae2a0ccbcb3bf197eba8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/romanbican/roles/zipball/b2b09c68d6a91a7e62ee60d65824a53fcfda2dbf",
-                "reference": "b2b09c68d6a91a7e62ee60d65824a53fcfda2dbf",
+                "url": "https://api.github.com/repos/romanbican/roles/zipball/b5a70d6429e1ed16407aae2a0ccbcb3bf197eba8",
+                "reference": "b5a70d6429e1ed16407aae2a0ccbcb3bf197eba8",
                 "shasum": ""
             },
             "require": {
@@ -219,7 +219,7 @@
                 "permissions",
                 "roles"
             ],
-            "time": "2015-06-16 19:06:47"
+            "time": "2015-06-21 15:41:18"
         },
         {
             "name": "classpreloader/classpreloader",
