@@ -58,9 +58,8 @@
                 var inputs = container.find('input');
                 var id = inputs.length+1;
 
-                html ='<div  class="checkbox"><label><input checked id="permission'+id+'" type="checkbox" value="'+value+'" name="permission[]"/>';
-                html +=name+"</label></div>";
-                $('#cblist').append(html);
+                html ='@oneLine('backend.user._partials.permission-ajax')';
+                $('#cblist').prepend(html);
                 return true;
             }
             $( "#permissions_search" ).autocomplete({

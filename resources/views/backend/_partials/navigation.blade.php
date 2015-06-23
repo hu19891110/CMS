@@ -1,4 +1,4 @@
-@role('root|admin|admin.auth|admin.settings')
+@role('admin.auth|admin.settings')
     <li class="header">Auth</li>
     <!-- Optionally, you can add icons to the links -->
     @permission('user.manage')
@@ -26,7 +26,7 @@
     @endpermission
 @endrole
 
-@role('root|admin|admin.page|admin.settings')
+@role('admin.page|admin.settings')
     <li class="header">Pages</li>
     <!-- Optionally, you can add icons to the links -->
     <li class="treeview {{Active::routePattern('admin.pages.*',"active")}}">
@@ -45,15 +45,19 @@
     </li>
 @endrole
 
-@role('root|admin|admin.project|admin.settings')
+@role('admin.project|admin.settings')
     <li class="header">Projects</li>
     <!-- Optionally, you can add icons to the links -->
     <li class="treeview {{Active::routePattern('admin.projects.*',"active")}}">
         <a href="{{URL::route('admin.projects')}}"><i class='fa fa-tasks'></i> <span>Projects</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
             <li class="{{Active::route('admin.projects.list','active')}}"><a href="{{URL::route('admin.projects.list')}}"><i class='fa fa-tasks'></i> <span>List Projects</span></a></li>
-            <li class="{{Active::route('admin.projects.create','active')}}"><a href="{{URL::route('admin.projects.create')}}"><i class='fa fa-plus'></i> <span>Create Project</span></a></li>
-            <li class="{{Active::route('admin.projects.settings','active')}}"><a href="#"><i class='fa fa-gear'></i> <span>Settings</span></a></li>
+            @permission('project.create')
+                <li class="{{Active::route('admin.projects.create','active')}}"><a href="{{URL::route('admin.projects.create')}}"><i class='fa fa-plus'></i> <span>Create Project</span></a></li>
+            @endpermission
+            @permission('settings.page')
+                <li class="{{Active::route('admin.projects.settings','active')}}"><a href="#"><i class='fa fa-gear'></i> <span>Settings</span></a></li>
+            @endpermission
         </ul>
     </li>
 @endrole

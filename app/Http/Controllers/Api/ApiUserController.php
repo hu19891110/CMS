@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Response;
 class ApiUserController extends Controller {
 
     /**
+     * Construction Method
+     *
+     * Middleware is assigned here
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:user.delete',['only'=>['destroy']]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -111,8 +121,10 @@ class ApiUserController extends Controller {
      */
     public function edit(User $user)
     {
-        $roles = Role::all()->groupBy('level');
-        return view('api.user.edit', compact('user','roles'));
+        if(Auth::user()->allowed('user.edit',$user,true,'id')||Auth::user()->can('user.edit')){
+            $roles = Role::all()->groupBy('parent_id');
+            return view('api.user.edit', compact('user','roles'));
+        }
     }
 
     /**
@@ -127,114 +139,147 @@ class ApiUserController extends Controller {
     {
         try
         {
-            /*
-             * Setup an Array of Errors
-             */
-            $errors = array();
-            /*
-             * If the current user has the User Edit Permission Update The User
-             */
-            foreach($request->except('password','status','status_ts') as $key => $value){
-                if($user->isFillable($key))
-                {
-                    if(Auth::user()->can('user.edit')){
-                        $user->update([$key => $value]);
-                    }else{
-                        $errors[] = "No Permission To Edit User";
-                        break;
+            //Check if user is allowed to edit the requested user.
+            if(Auth::user()->allowed('user.edit',$user,true,'id')||Auth::user()->can('user.edit')) {
+                /*
+                 * Setup an Array of Errors
+                 */
+                $errors = array();
+                /*
+                 * If the current user has the User Edit Permission Update The User
+                 */
+                foreach ($request->except('password', 'status', 'status_ts') as $key => $value) {
+                    if ($user->isFillable($key)) {
+                        if (Auth::user()->can('user.edit')) {
+                            $user->update([$key => $value]);
+                        } else {
+                            $errors[] = "No Permission To Edit User";
+                            break;
+                        }
                     }
                 }
-            }
-            /*
-             * Update the user status
-             * lock/unlock
-             * banned/unbanned
-             * registered/active
-             */
-            if(Auth::user()->can('user.lock|user.unlock|user.ban|user.unban')){
-                switch($request->only('status'))
-                {
-                    case "locked":
-                        if($user->status!="locked" && Auth::user()->can('user.lock'))
-                            $user->update(['status' => $request->input('status')]);
-                        else
-                            $errors[] = "No Permission to Lock User";
-                        break;
-                    case "banned":
-                        if($user->status!="banned" && Auth::user()->can('user.ban'))
-                            $user->update(['status' => $request->input('status')]);
-                        else
-                            $errors[] = "No Permission to Ban User";
-                        break;
-                    default:
-                        $status=$request->input('status');
-                        if(isset($status)){
-                            if($user->status=="locked" && Auth::user()->can('user.unlock'))
-                                $user->update(['status' => $request->input('status')]);
-                            elseif($user->status=="locked" && Auth::user()->can('user.unban'))
+                /*
+                 * Update the user status
+                 * lock/unlock
+                 * banned/unbanned
+                 * registered/active
+                 */
+                if (Auth::user()->can('user.lock|user.unlock|user.ban|user.unban')) {
+                    switch ($request->only('status')) {
+                        case "locked":
+                            if ($user->status != "locked" && Auth::user()->can('user.lock'))
                                 $user->update(['status' => $request->input('status')]);
                             else
-                                $errors[] = "No Permission to Unlock or Unban User";
-                        }
-                        break;
+                                $errors[] = "No Permission to Lock User";
+                            break;
+                        case "banned":
+                            if ($user->status != "banned" && Auth::user()->can('user.ban'))
+                                $user->update(['status' => $request->input('status')]);
+                            else
+                                $errors[] = "No Permission to Ban User";
+                            break;
+                        default:
+                            $status = $request->input('status');
+                            if (isset($status)) {
+                                if ($user->status == "locked" && Auth::user()->can('user.unlock'))
+                                    $user->update(['status' => $request->input('status')]);
+                                elseif ($user->status == "locked" && Auth::user()->can('user.unban'))
+                                    $user->update(['status' => $request->input('status')]);
+                                else
+                                    $errors[] = "No Permission to Unlock or Unban User";
+                            }
+                            break;
+                    }
+                } elseif ($user->status != $request->only('status')) {
+                    $errors[] = "No Permission to Update User Status!";
                 }
-            }elseif($user->status != $request->only('status')){
-                $errors[] = "No Permission to Update User Status!";
-            }
-            /*
-            * If the current user has the User Reset Permission Update The Users Password
-            */
-            if(Auth::user()->can('user.reset')) {
-                if (!is_null($request->input('password')) && $request->input('password') !== '') {
-                    $user->update(['password' => $request->input('password')]);
+                /*
+                * If the current user has the User Reset Permission Update The Users Password
+                */
+                if (Auth::user()->can('user.reset')) {
+                    if (!is_null($request->input('password')) && $request->input('password') !== '') {
+                        $user->update(['password' => $request->input('password')]);
+                    }
+                } else {
+                    if (!is_null($request->input('password')) && $request->input('password') !== '') {
+                        $errors[] = "No Permission to Reset User Passwords";
+                    }
                 }
-            }else{
-                if (!is_null($request->input('password')) && $request->input('password') !== '') {
-                    $errors[] = "No Permission to Reset User Passwords";
-                }
-            }
 
-            /*
-            * If the current user has the User Roles Permission Update The Users Role
-            */
-            if(Auth::user()->can('user.roles')) {
-                if (!is_null($request->get('roles'))) {
-                    $requestRoles = $request->get('roles');
-                    foreach ($user->roles as $role) {
-                        //Check if the user already has the role requested
-                        if (in_array($role->slug, $requestRoles)) {
-                            $exists = array_search($role->slug, $requestRoles);
-                            //Unset from the requested array, as the user already has this role
-                            unset($requestRoles[$exists]);
-                        } else {
-                            //User has a role that wasn't specified
-                            $user->detachRole($role);
+                /*
+                * If the current user has the User Roles Permission Update The Users Role
+                */
+                if (Auth::user()->can('user.roles')) {
+                    if (!is_null($request->get('roles'))) {
+                        //GRANTED ROLES
+                        $requestRoles = $request->get('roles');
+                        foreach ($user->grantedRoles()->get() as $role) {
+                            //Check if the user already has the role requested
+                            if (in_array($role->slug, $requestRoles)) {
+                                $exists = array_search($role->slug, $requestRoles);
+                                //Unset from the requested array, as the user already has this role
+                                unset($requestRoles[$exists]);
+                            } else {
+                                //User has a role that wasn't specified
+                                $user->detachRole($role);
+                            }
+                        }
+                        //Add Roles to the user that they don't already have
+                        foreach ($requestRoles as $role) {
+                            $role = Role::where('slug', $role)->first();
+                            $user->attachRole($role,TRUE);
                         }
                     }
-                    //Add Roles to the user that they don't already have
-                    foreach ($requestRoles as $role) {
-                        $role = Role::where('slug', $role)->first();
-                        $user->attachRole($role);
+                    if (!is_null($request->get('rolesDenied'))) {
+                        //DENIED ROLES
+                        $requestRoles = $request->get('rolesDenied');
+                        foreach ($user->deniedRoles()->get() as $role) {
+                            //Check if the user already has the role requested
+                            if (in_array($role->slug, $requestRoles)) {
+                                $exists = array_search($role->slug, $requestRoles);
+                                //Unset from the requested array, as the user already has this role
+                                unset($requestRoles[$exists]);
+                            } else {
+                                //User has a role that wasn't specified
+                                $user->detachRole($role);
+                            }
+                        }
+                        //Add Roles to the user that they don't already have
+                        foreach ($requestRoles as $role) {
+                            $role = Role::where('slug', $role)->first();
+                            $user->attachRole($role, FALSE);
+                        }
+                    }else{
+                        foreach ($user->deniedRoles()->get() as $role)
+                            $user->detachRole($role);
                     }
+
+                } else {
+                    if (!is_null($request->get('roles')))
+                        $errors[] = "No Permission to Change User Roles";
+                }
+                /*
+                * If the current user has the User Roles Permission Update The Users Role
+                */
+                if (Auth::user()->can('user.permissions')) {
+                    $user->detachAllPermissions();
+                    //Update The Permissions
+                    if (!is_null($request->get('permission'))) {
+                        foreach ($request->get('permission') as $pid) {
+                            $user->attachPermission(Permission::find($pid),TRUE);
+                        }
+                    }
+                    if (!is_null($request->get('permissionDenied'))) {
+                        foreach ($request->get('permissionDenied') as $pid) {
+                            $user->attachPermission(Permission::find($pid),FALSE);
+                        }
+                    }
+                } else {
+                    if (!is_null($request->get('permission')))
+                        $errors[] = "No Permission to Change User Permissions";
                 }
             }else{
-                if (!is_null($request->get('roles')))
-                    $errors[] = "No Permission to Change User Roles";
-            }
-            /*
-            * If the current user has the User Roles Permission Update The Users Role
-            */
-            if(Auth::user()->can('user.permissions')) {
-                $user->detachAllPermissions();
-                //Update The Permissions
-                if (!is_null($request->get('permission'))) {
-                    foreach ($request->get('permission') as $pid) {
-                        $user->attachPermission(Permission::find($pid));
-                    }
-                }
-            }else{
-                if (!is_null($request->get('permission')))
-                    $errors[] = "No Permission to Change User Permissions";
+                $errors[] = "No Permission to Edit This User";
             }
 
             return Response::json(array(
