@@ -21,7 +21,6 @@ Route::group(['namespace'=>'Api','prefix'=>'api'], function(){
     Route::resource('user','ApiUserController');
     Route::resource('role','ApiRoleController');
     Route::resource('page','ApiPageController');
-    Route::resource('project','ApiProjectController');
 
     Route::get('/autocomplete/{type}', [
         'uses'=>'AutocompleteController@getResults',
@@ -175,33 +174,6 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin', 'middleware' => 'role:root
             'as'=>'admin.pages.edit.inline'
         ]);
     });
-    /*
-     * Admin - Project Routes
-     */
-    Route::group(['prefix'=>'projects', 'middleware' => 'role:root|admin|admin.projects'], function() {
-
-        Route::get('/', [
-            'uses'=>'ProjectController@getIndex',
-            'as'=>'admin.projects'
-        ]);
-        Route::get('/create', [
-            'uses'=>'ProjectController@getCreate',
-            'as'=>'admin.projects.create'
-        ]);
-        Route::get('/list', [
-            'uses'=>'ProjectController@getList',
-            'as'=>'admin.projects.list'
-        ]);
-
-        Route::get('/edit/{page}', [
-            'uses'=>'ProjectController@getEdit',
-            'as'=>'admin.projects.edit'
-        ]);
-        Route::get('/edit/{page}/inline', [
-            'uses'=>'ProjectController@getEditInline',
-            'as'=>'admin.projects.edit.inline'
-        ]);
-    });
 });
 
 /*
@@ -210,13 +182,6 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin', 'middleware' => 'role:root
 Route::get('/guest-only',function(){
     return view('frontend',['content'=>'<h1>Sorry Guests Only!</h1>']);
 });
-
-Route::get('/projects',function(){
-    return view('frontend.project',['project'=>\DCN\Project::first()]);
-});
-
-
-
 
 /*
  * Page Routes
