@@ -8,6 +8,11 @@ An open source, simple CMS
     - [Get Code](#get-code)
     - [Configuration](#configuration)
     - [Database](#database)
+- [Customization](#customization)
+    - [Blade Views](#blade-views)
+    - [CSS & LESS](#css-and-less)
+    - [Javascript](#javascript)
+    - [Grunt](#grunt)
 - [License](#license)
 
 ## About
@@ -77,7 +82,40 @@ php artisan migrate
 php artisan db:seed
 ```
 
-    
+## Customization
+Customizing is easy!
+
+### Blade Views
+Because this CMS is based on Laravel; we use [blades](http://laravel.com/docs/master/blade) for all of our views.
+
+The default blades are stored in `resources/views`, and overriding blades are stored in `site-templates`
+
+For Example:  
+`touch site-templates/frontend.blade.php`  
+Will render all pages, with the exception of the API and Admin routes, with a blank page.
+
+### CSS and LESS
+The default LESS files are stored in `public/assets/stylesheets` and are compiled and stored in `public/css`
+
+By default grunt makes 6 files. `backend.css`,`frontend.css`, and `portal.css` each with a minimized version.
+
+There is also a `public/css/style.css` file for raw css if you need it.
+
+### JavaScript
+The default JS files are stored in `public/assets/javascript` and are compiled and stored in `public/js`
+
+By default grunt makes 6 files. `backend.js`,`frontend.js`, and `portal.js` each with a minimized version.
+
+The `public/assets/javascript/includes` folder should be left alone. As it is simply a storage place for grunt to combine all files together.
+
+Within the 
+
+
+
+### Grunt
+Simply run grunt watch when customizing and your less, javascript, and other changes will automatically be compiled for use.
+
+
 ## License
 This software is licensed under the unlicensed licensed.
 
