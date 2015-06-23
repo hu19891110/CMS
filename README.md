@@ -15,8 +15,8 @@ Additionally, we assume you have installed and configured:
 Commands
 
 1. git clone git@github.com:DynamicCodeNinja/CMS.git ./
-1. sudo chmod -R o+w storage/
-1. sudo chmod -R o+w bootstrap/cache/
+1. sudo chmod -R 777 storage/
+1. sudo chmod -R 777 bootstrap/cache/
 1. sudo chmod 777 public/images
 1. composer install
 1. bower install
