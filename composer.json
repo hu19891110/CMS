@@ -1,8 +1,8 @@
 {
-	"name": "DCN/CMS",
+	"name": "dcn/cms",
 	"description": "DCN CMS.",
-	"keywords": ["DCN", "laravel"],
-	"license": "Fail",
+	"keywords": ["DCN", "laravel", "CMS", "Page Management"],
+	"license": "unlicense",
 	"type": "project",
 	"require": {
 		"laravel/framework": "5.1.*",
