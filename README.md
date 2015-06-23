@@ -39,6 +39,7 @@ Installation is simple.
 For installation we assume that you have met the requirements for laravel 5.1
 
 Additionally, we assume you have installed and configured:
+
 - composer
 - bower
 - grunt (Optional, Mainly for development & Customizations)
@@ -108,9 +109,9 @@ By default grunt makes 6 files. `backend.js`,`frontend.js`, and `portal.js` each
 
 The `public/assets/javascript/includes` folder should be left alone. As it is simply a storage place for grunt to combine all files together.
 
-Within the 
+Within the `public/assets/javascript` folder there are `.inc` files and `.js` files.
 
-
+The `.inc` files are used to include vendor `.js` files into one, while the `.js` is for your custom area wide javascript.
 
 ### Grunt
 Simply run grunt watch when customizing and your less, javascript, and other changes will automatically be compiled for use.
