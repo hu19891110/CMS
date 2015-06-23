@@ -84,22 +84,6 @@ class SeedDCNCMS extends Seeder
                 )
             ),
             array(
-                'name' => 'Project Admin',
-                'slug'=>'admin.project',
-                'description'=>'Project Management Admins',
-                //'level'=>5000,
-                'parent_id'=>2,
-                'permissionsArray'=>array(
-                    array('slug'=>'project.create',        'name' => 'Create Projects',           'description'=>'People with this permission can create new projects'),
-                    array('slug'=>'project.edit',          'name' => 'Edit Projects',             'description'=>'People with this permission can edit projects'),
-                    array('slug'=>'project.publish',       'name' => 'Publish Projects',          'description'=>'People with this permission can publish projects'),
-                    array('slug'=>'project.unpublish',     'name' => 'Unpublish Projects',        'description'=>'People with this permission can unpublish projects'),
-                    array('slug'=>'project.review',        'name' => 'Review Projects',           'description'=>'People with this permission can review and edit projects before they are published'),
-                    array('slug'=>'project.delete',        'name' => 'Delete Projects',           'description'=>'People with this permission can delete projects'),
-                    array('slug'=>'project.owner',         'name' => 'Own Projects',              'description'=>'People with this permission can be own project changes and be notified of any and all changes'),
-                )
-            ),
-            array(
                 'name' => 'Member',
                 'slug'=>'member',
                 'description'=>'Default Group For All Users',

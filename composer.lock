@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c233bcdbcd24da5e22217190ef52d2bf",
+    "hash": "43d4c48187820ff1314d8ddb4650e1ae",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -408,16 +408,16 @@
         },
         {
             "name": "dcn/rbac",
-            "version": "1.0.1",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DynamicCodeNinja/RBAC.git",
-                "reference": "5bf7986d377233e6f9c07d7a13c8dd73f5e0d434"
+                "reference": "479ee19f7e9be1f904f22e9a90831d860f1f8d2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DynamicCodeNinja/RBAC/zipball/5bf7986d377233e6f9c07d7a13c8dd73f5e0d434",
-                "reference": "5bf7986d377233e6f9c07d7a13c8dd73f5e0d434",
+                "url": "https://api.github.com/repos/DynamicCodeNinja/RBAC/zipball/479ee19f7e9be1f904f22e9a90831d860f1f8d2d",
+                "reference": "479ee19f7e9be1f904f22e9a90831d860f1f8d2d",
                 "shasum": ""
             },
             "require": {
@@ -449,7 +449,7 @@
                 "rbac",
                 "roles"
             ],
-            "time": "2015-06-22 19:43:57"
+            "time": "2015-06-23 03:56:18"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
