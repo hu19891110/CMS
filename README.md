@@ -22,7 +22,7 @@ Features include:
 - User Management
 - Page Management
 - ContentBuilder Inline Page Editing  
->ContentBuilder Not Included! [Buy Here](http://innovastudio.com/content-builder.aspx) 
+> ContentBuilder Not Included! [Buy Here](http://innovastudio.com/content-builder.aspx) 
 
 ## Install
 Installation is simple.
