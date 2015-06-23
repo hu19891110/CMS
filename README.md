@@ -24,3 +24,5 @@ Commands
 1. vi .env // Configure settings for laravel
 1. php artisan migrate
 1. php artisan db:seed
+1. Install ContentBuilder into public/assets/vendor
+    - It should look like this: `public/assets/vendor/ContentBuilder/assets`, `public/assets/vendor/ContentBuilder/scripts`, `public/assets/vendor/ContentBuilder/readme.txt`, etc.
