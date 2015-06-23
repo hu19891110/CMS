@@ -26,7 +26,7 @@ class UserController extends Controller
     }
     public function getCreate()
     {
-        $roles = Role::all()->groupBy('level');
+        $roles = Role::all()->groupBy('parent_id');
         return view('backend.user.create',compact('roles'));
     }
     public function getList()
@@ -37,7 +37,7 @@ class UserController extends Controller
     }
     public function getEdit(User $user)
     {
-        $roles = Role::all()->groupBy('level');
+        $roles = Role::all()->groupBy('parent_id');
         return view('backend.user.edit',compact('user','roles'));
     }
 }

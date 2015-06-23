@@ -408,16 +408,16 @@
         },
         {
             "name": "dcn/rbac",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DynamicCodeNinja/RBAC.git",
-                "reference": "6d05c04fb84c40e8ceb4a73489e3dae556d887c9"
+                "reference": "5bf7986d377233e6f9c07d7a13c8dd73f5e0d434"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DynamicCodeNinja/RBAC/zipball/6d05c04fb84c40e8ceb4a73489e3dae556d887c9",
-                "reference": "6d05c04fb84c40e8ceb4a73489e3dae556d887c9",
+                "url": "https://api.github.com/repos/DynamicCodeNinja/RBAC/zipball/5bf7986d377233e6f9c07d7a13c8dd73f5e0d434",
+                "reference": "5bf7986d377233e6f9c07d7a13c8dd73f5e0d434",
                 "shasum": ""
             },
             "require": {
@@ -449,7 +449,7 @@
                 "rbac",
                 "roles"
             ],
-            "time": "2015-06-22 18:38:47"
+            "time": "2015-06-22 19:43:57"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

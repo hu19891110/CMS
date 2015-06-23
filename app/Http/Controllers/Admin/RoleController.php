@@ -24,7 +24,7 @@ class RoleController extends Controller {
     }
     public function getList()
     {
-        $roles = Role::orderBy('level','desc')->paginate(10);
+        $roles = Role::paginate(10);
         return view('backend.role.list',compact('roles'));
     }
     public function getEdit(Role $role)
