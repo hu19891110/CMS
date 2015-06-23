@@ -48,13 +48,12 @@ Additionally, we assume you have installed and configured:
 You can get the code by running the following commands:
 
 ```
-git clone git@github.com:DynamicCodeNinja/CMS.git ./
+composer create-project dcn/cms ./
 chmod -R 777 storage/
 chmod -R 777 bootstrap/cache/
 chmod 777 public/images
 composer install
 bower install
-cp .env.example .env
 ```
 
 ### Configuration
