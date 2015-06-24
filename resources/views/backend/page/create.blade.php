@@ -32,4 +32,5 @@
         });
     </script>
     @include('backend.page._partials.auto-complete-js')
+    @include('backend.page._partials.order-js')
 @endsection

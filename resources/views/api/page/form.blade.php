@@ -74,6 +74,26 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">Page Order</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <p>
+                    {!! Form::hidden('pageOrder',null,array('id'=>'pageOrder')) !!}
+                    <ol class="sortable">
+                        {!! \DCN\Page::order() !!}
+                        @if(!isset($page))
+                            <li id="menuItem_NEWPAGE"><div><b>YOUR NEW PAGE</b></div></li>
+                        @endif
+                    </ol>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
         <div id="page_content_box" class="box box-danger collapsed-box">
             <div class="box-header">
                 <h3 class="box-title">Page Raw HTML</h3>

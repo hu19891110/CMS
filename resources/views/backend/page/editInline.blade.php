@@ -12,4 +12,5 @@
 @section('javascript')
     @include('vendor.contentBuilder')
     @include('backend.page._partials.editinline-menu')
+    @include('backend.page._partials.order-js')
 @endsection

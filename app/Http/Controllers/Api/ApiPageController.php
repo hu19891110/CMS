@@ -3,11 +3,14 @@
 use Auth;
 use DCN\Http\Requests;
 use DCN\Http\Controllers\Controller;
+use Illuminate\Support\Collection;
 
 use DCN\Http\Requests\PageRequest;
 use DCN\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use League\Flysystem\Exception;
+use Psy\Util\Json;
 
 class ApiPageController extends Controller {
 
@@ -59,6 +62,9 @@ class ApiPageController extends Controller {
         try{
             if(Auth::user()->can('page.create')) {
                 $page = Page::create($request->all());
+
+                //Handle The Page Order
+                self::pageOrder($request->only('pageOrder'),$page->id);
             }
             return Response::json(array(
                 'success' => true,
@@ -114,6 +120,8 @@ class ApiPageController extends Controller {
         {
             $page->update($request->all());
 
+            self::pageOrder($request->only('pageOrder'));
+
             return Response::json(array(
                 'success' => true,
                 'page'   => $page
@@ -150,5 +158,39 @@ class ApiPageController extends Controller {
             ));
         }
 	}
+
+
+
+    /**
+     * @param $order
+     * @param null $newPageID
+     * @throws Exception
+     */
+    private static function pageOrder($order,$newPageID=null)
+    {
+
+        if(array_key_exists('pageOrder',$order))
+            $order = $order['pageOrder'];
+
+        $rawPages = json_decode($order,true);
+
+        foreach($rawPages as $raw)
+        {
+            //Handle New Pages
+            if($newPageID!=NULL)
+            {
+                if($raw['item_id']=="NEWPAGE")
+                {
+                    $raw['item_id']=$newPageID;
+                }
+            }
+
+            $page = Page::find($raw['item_id']);
+            $page->move($raw['parent_id'],$raw['left'],$raw['right'], $raw['depth']);
+        }
+
+        Page::rebuild(true);
+        return;
+    }
 
 }

@@ -25,6 +25,8 @@
 
             // bind to the form's submit event
             $('#edit-page-form').submit(function() {
+                var arrayed = $('ol.sortable').nestedSortable('toArray', {startDepthCount: 0});
+                $('input#pageOrder').val( JSON.stringify(arrayed) );
                 $(this).ajaxSubmit(options);
                 return false;
             });
@@ -35,10 +37,12 @@
                     $.each(json.errors, function () {
                         $('#alert-area').append('<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-cross"></i> Warning!</h4>' + this + '</div>');
                     });
+
                 var str = '@oneLine('backend.page._partials.alerts.page-edited')';
                 $('#alert-area').append(str);
             }
         });
     </script>
     @include('backend.page._partials.auto-complete-js')
+    @include('backend.page._partials.order-js')
 @endsection

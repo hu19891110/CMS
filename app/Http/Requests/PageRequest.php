@@ -42,6 +42,7 @@ class PageRequest extends Request {
                     'owner_id'=>['integer','exists:users,id'],
                     'system'=>['required'],
                     'status'=>['required','in:draft,review,unpublished,published'],
+                    'pageOrder' => ['required'],
                 ];
             }
             case 'PUT':
@@ -53,6 +54,7 @@ class PageRequest extends Request {
                     'owner_id'=>['integer','exists:users,id'],
                     'system'=>['required'],
                     'status'=>['required','in:draft,review,unpublished,published'],
+                    'pageOrder' => ['required'],
                 ];
             }
             case 'PATCH':
@@ -64,6 +66,7 @@ class PageRequest extends Request {
                     'owner_id'=>['integer','exists:users,id'],
                     'system'=>['required'],
                     'status'=>['required','in:draft,review,unpublished,published'],
+                    'pageOrder' => ['required'],
                 ];
             }
             default:break;
