@@ -20,6 +20,8 @@
 
             // bind to the form's submit event
             $('#create-page-form').submit(function() {
+                var arrayed = $('ol.sortable').nestedSortable('toArray', {startDepthCount: 0});
+                $('input#pageOrder').val( JSON.stringify(arrayed) );
                 $(this).ajaxSubmit(options);
                 return false;
             });

@@ -143,4 +143,14 @@ class Page extends Node implements SluggableInterface
         $this->Updater()->associate($user);
         parent::save($options);
     }
+
+    /**
+     * @param array $attributes
+     * @return static
+     */
+    public static function create($attributes = array())
+    {
+        $attributes = array_merge($attributes, ['creator_id'=>Auth::user()->id]);
+        return parent::create($attributes);
+    }
 }
