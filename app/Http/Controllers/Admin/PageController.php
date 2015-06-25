@@ -10,12 +10,6 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function getIndex()
     {
         //Display Latest User Actions Etc.
@@ -29,7 +23,11 @@ class PageController extends Controller
     public function getList()
     {
         //Display Latest User Actions Etc.wat
-        $pages = Page::paginate(10);
+        if(Auth::user()->can('page.system'))
+            $pages = Page::paginate(10);
+        else
+            $pages = Page::where('system',FALSE)->paginate(10);
+
         return view('backend.page.list',compact('pages'));
     }
     public function getEdit(Page $page)
@@ -42,6 +40,9 @@ class PageController extends Controller
 
     public function getEditInline(Page $page)
     {
+        if($page->system)
+            if(!Auth::user()->can('page.system'))
+                App::abort(403,"No Permission to edit system pages");
         return view('backend.page.editInline',compact('page'));
     }
 
