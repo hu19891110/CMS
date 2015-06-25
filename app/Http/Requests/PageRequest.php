@@ -12,33 +12,48 @@ class PageRequest extends Request {
 	 */
 	public function authorize()
 	{
-
         switch($this->method()) {
             case 'GET': return true;
             case 'DELETE': {
                 if(Auth::user()->can('page.delete')) {
-                    return true;
+                    //Don't let anyone manage system pages
+                    if($this->route('page') != NULL && $this->route('page')->system && !Auth::user()->can('page.system'))
+                        return false;
+                    else
+                        return true;
                 }else{
                     return false;
                 }
             }
             case 'POST': {
                 if(Auth::user()->can('page.create')) {
-                    return true;
+                    //Don't let anyone manage system pages
+                    if($this->route('page') != NULL && $this->route('page')->system && !Auth::user()->can('page.system'))
+                        return false;
+                    else
+                        return true;
                 }else{
                     return false;
                 }
             }
             case 'PUT': {
                 if(Auth::user()->can('page.edit|page.publish|page.unpublish')) {
-                    return true;
+                    //Don't let anyone manage system pages
+                    if($this->route('page') != NULL && $this->route('page')->system && !Auth::user()->can('page.system'))
+                        return false;
+                    else
+                        return true;
                 }else{
                     return false;
                 }
             }
             case 'PATCH': {
                 if(Auth::user()->can('page.edit|page.publish|page.unpublish')) {
-                    return true;
+                    //Don't let anyone manage system pages
+                    if($this->route('page') != NULL && $this->route('page')->system && !Auth::user()->can('page.system'))
+                        return false;
+                    else
+                        return true;
                 }else{
                     return false;
                 }
