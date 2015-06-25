@@ -62,10 +62,10 @@ class UserRequest extends Request
             case 'PATCH':
             {
                 return [
-                    'name_first'=>[ 'required', 'min:2' ],
-                    'name_last'=>[ 'required', 'min:2' ],
-                    'username'=>[ 'required', 'unique:users,username,'.$this->route()->user->id ],
-                    'email'=>[ 'required', 'min:5', 'unique:users,email,'.$this->route()->user->id ],
+                    'name_first'=>[ 'min:2' ],
+                    'name_last'=>[ 'min:2' ],
+                    'username'=>[ 'unique:users,username,'.$this->route()->user->id ],
+                    'email'=>[ 'min:5', 'unique:users,email,'.$this->route()->user->id ],
                     'password_confirmation'=>[ 'required_with:password', 'same:password' ],
                     'status'=>['in:registered,active,locked,banned'],
                     'status_ts'=>['required_if:status,locked','date','after:now'],

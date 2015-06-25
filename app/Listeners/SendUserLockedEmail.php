@@ -5,6 +5,7 @@ namespace DCN\Listeners;
 use DCN\Events\UserLocked;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Mail;
 
 class SendUserLockedEmails implements ShouldQueue
 {

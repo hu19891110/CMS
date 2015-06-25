@@ -5,6 +5,7 @@ namespace DCN\Listeners;
 use DCN\Events\UserPasswordChanged;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Mail;
 
 class SendUserPasswordChangedEmails implements ShouldQueue
 {

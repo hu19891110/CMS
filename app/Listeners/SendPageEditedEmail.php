@@ -5,6 +5,7 @@ namespace DCN\Listeners;
 use DCN\Events\PageEdited;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Mail;
 
 class SendPageEditedEmails implements ShouldQueue
 {
