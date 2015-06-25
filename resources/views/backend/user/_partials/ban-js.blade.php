@@ -29,7 +29,7 @@
         $.ajax({
             method: "PUT",
             url: '{{URL::route('api.user.update',['user'=>null])}}/'+id,
-            data: { status: "registered", }
+            data: { status: "active" }
         }).done(function(json) {
             processBanJson(json,id)
         }).fail(function(json){

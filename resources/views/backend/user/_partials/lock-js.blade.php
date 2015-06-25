@@ -34,7 +34,7 @@
             method: "PUT",
             url: '{{URL::route('api.user.update',['user'=>null])}}/'+id,
             data: {
-                status: "registered",
+                status: "active",
                 status_ts: $('#Lock-User-Expire-'+id).val(),
             }
         }).done(function(json,id) {
