@@ -9,12 +9,12 @@
         $.ajax({
             method: "DELETE",
             dataType: "json",
-            url: '{{URL::route('api.page.destroy',['role'=>null])}}/'+id,
+            url: '{{URL::route('api.page.destroy',['page'=>null])}}/'+id,
         }).done(function(json){
             $('#Page-'+id+'-tr').hide();
         }).fail(function(json){
             errorJson(json);
-        }).trigger( "updatedAlerts" );;
+        }).trigger( "updatedAlerts" );
         $('#Delete-Page-'+id).modal('hide');
     }
 </script>

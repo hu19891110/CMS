@@ -15,7 +15,9 @@
 		"dcn/rbac": "~1.1.0",
 		"wyrihaximus/html-compress": "~1.0",
 		"hieu-le/active": "^2.1",
-		"nicolaslopezj/searchable": "^1.5"
+		"nicolaslopezj/searchable": "^1.5",
+        "guzzlehttp/guzzle": "~5.3|~6.0",
+        "aws/aws-sdk-php": "~3.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",

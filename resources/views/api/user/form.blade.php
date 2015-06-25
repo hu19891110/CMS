@@ -4,18 +4,6 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">Actions</h3>
-                    </div><!-- /.box-header -->
-                    <div class="box-body">
-                        {!! Form::submit(isset($submitButtonText)?$submitButtonText:"Submit",['class'=>'btn btn-primary']) !!}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="box box-primary">
-                    <div class="box-header">
                         <h3 class="box-title">User</h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
@@ -104,6 +92,18 @@
         @endpermission
     </div>
     <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Actions</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        {!! Form::submit(isset($submitButtonText)?$submitButtonText:"Submit",['class'=>'btn btn-primary']) !!}
+                    </div>
+                </div>
+            </div>
+        </div>
         @permission('user.roles')
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">

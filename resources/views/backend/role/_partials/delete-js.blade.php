@@ -19,7 +19,7 @@
                 $('#Role-'+id+'-tr').hide();
         }).fail(function(json){
             errorJson(json);
-        }).trigger( "updatedAlerts" );;
+        }).trigger( "updatedAlerts" );
         $('#Delete-Role-'+id).modal('hide');
     }
 </script>

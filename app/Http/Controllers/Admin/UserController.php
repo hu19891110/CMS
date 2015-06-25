@@ -10,18 +10,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function getIndex()
     {
         //Display Latest User Actions Etc.
         $history = User::classRevisionHistory();
-		$user=User::find(2);
-		dd($user->revisionHistory()->count());
         return view('backend.user.index',compact('history'));
     }
     public function getCreate()

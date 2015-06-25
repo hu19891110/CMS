@@ -18,25 +18,30 @@
                         {!! Form::label('system','Page Type') !!}
                         {!! Form::select('system', [false=>'Normal',true=>'System'], null, ['class'=>"form-control"]) !!}
                     </div>
-                @endpermission
-                @permission('page.review')
-                    @permission('page.publish')
-                        <div class="form-group">
-                            {!! Form::label('status','Status') !!}
-                            {!! Form::select('status', ["draft"=>'Draft',"review"=>'Under Review',"unpublished"=>'Unpublished', "published"=>'Published'], null, ['class'=>"form-control"]) !!}
-                        </div>
-                    @else
-                        <div class="form-group">
-                            {!! Form::label('status','Status') !!}
-                            {!! Form::select('status', ["draft"=>'Draft',"review"=>'Under Review',"unpublished"=>'Unpublished'], null, ['class'=>"form-control"]) !!}
-                        </div>
-                    @endpermission
                 @else
                     <div class="form-group">
-                        {!! Form::label('status','Status') !!}
-                        {!! Form::select('status', ["draft"=>'Draft',"review"=>'Under Review'], null, ['class'=>"form-control"]) !!}
+                        {!! Form::label('system','Page Type') !!}
+                        {!! Form::select('system', [false=>'Normal'], null, ['class'=>"form-control"]) !!}
                     </div>
                 @endpermission
+                <?php
+                $statuses = [];
+                if((!Auth::user()->can('page.unpublish') && (isset($page) && $page->status == "published"))){
+                    $statuses['published'] = 'Published';
+                }else{
+                    if(Auth::user()->can('page.publish'))
+                        $statuses['published'] = 'Published';
+                    if(Auth::user()->can('page.unpublish'))
+                        $statuses['unpublished'] = 'Unpublished';
+                    $statuses['review'] = 'Under Review';
+                    $statuses['draft'] = 'Draft';
+                }
+                ?>
+                <div class="form-group">
+                    {!! Form::label('status','Status') !!}
+                    {!! Form::select('status', $statuses, null, ['class'=>"form-control"]) !!}
+                </div>
+
             </div>
         </div>
     </div>
@@ -68,6 +73,26 @@
             </div><!-- /.box-header -->
             <div class="box-body">
                 {!! Form::submit(isset($submitButtonText)?$submitButtonText:"Submit",['class'=>'btn btn-primary']) !!}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">Page Order</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <p>
+                    {!! Form::hidden('pageOrder',null,array('id'=>'pageOrder')) !!}
+                    <ol class="sortable">
+                        {!! \DCN\Page::order() !!}
+                        @if(!isset($page))
+                            <li id="menuItem_NEWPAGE"><div><b>YOUR NEW PAGE</b></div></li>
+                        @endif
+                    </ol>
+                </p>
             </div>
         </div>
     </div>

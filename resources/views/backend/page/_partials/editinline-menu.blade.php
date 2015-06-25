@@ -115,6 +115,8 @@
                 onComplete: function () {
                     var sHTML = $('#contentarea').data('contentbuilder').html();
                     $('#content').val(sHTML);
+                    var arrayed = $('ol.sortable').nestedSortable('toArray', {startDepthCount: 0});
+                    $('input#pageOrder').val( JSON.stringify(arrayed) );
                     if($('form[name=edit-page-form]').submit(function(){return false;})){
                         $.ajax({
                             type: 'POST',

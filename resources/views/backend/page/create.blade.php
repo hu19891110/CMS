@@ -20,6 +20,8 @@
 
             // bind to the form's submit event
             $('#create-page-form').submit(function() {
+                var arrayed = $('ol.sortable').nestedSortable('toArray', {startDepthCount: 0});
+                $('input#pageOrder').val( JSON.stringify(arrayed) );
                 $(this).ajaxSubmit(options);
                 return false;
             });
@@ -32,4 +34,5 @@
         });
     </script>
     @include('backend.page._partials.auto-complete-js')
+    @include('backend.page._partials.order-js')
 @endsection

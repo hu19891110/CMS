@@ -12,10 +12,6 @@ use DCN\Http\Controllers\Controller;
 
 class SettingsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     public function getAuth()
     {
         return view('backend.settings.auth');
