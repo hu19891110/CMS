@@ -148,7 +148,7 @@ class Page extends Node implements SluggableInterface
      * @param array $attributes
      * @return static
      */
-    public static function create($attributes = array())
+    public static function create(array $attributes = array())
     {
         $attributes = array_merge($attributes, ['creator_id'=>Auth::user()->id]);
         return parent::create($attributes);

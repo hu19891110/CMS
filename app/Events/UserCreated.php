@@ -3,6 +3,7 @@
 namespace DCN\Events;
 
 use DCN\Events\Event;
+use DCN\User;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
@@ -10,16 +11,16 @@ class UserCreated extends Event
 {
     use SerializesModels;
 
-    public $userId;
+    public $user;
 
     /**
      * Create a new event instance.
      *
-     * @param $userId
+     * @param User $user
      */
-    public function __construct($userId)
+    public function __construct(User $user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
     }
 
     /**

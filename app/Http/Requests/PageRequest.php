@@ -77,7 +77,7 @@ class PageRequest extends Request {
         if(Auth::user()->can('page.system'))
             $system = ["true","1",1];
 
-        $system = array_merge($system,["false","0",0]);
+        $system = implode(',',array_merge($system,["false","0",0]));
 
 
 

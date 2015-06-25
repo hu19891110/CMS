@@ -1,6 +1,14 @@
 <?php namespace DCN\Http\Controllers\Api;
 
 use Auth;
+use DCN\Events\UserBanned;
+use DCN\Events\UserCreated;
+use DCN\Events\UserDeleted;
+use DCN\Events\UserEdited;
+use DCN\Events\UserLocked;
+use DCN\Events\UserPasswordChanged;
+use DCN\Events\UserUnbanned;
+use DCN\Events\UserUnlocked;
 use DCN\Http\Requests;
 use DCN\Http\Controllers\Controller;
 
@@ -8,6 +16,7 @@ use DCN\Http\Requests\UserRequest;
 use DCN\Permission;
 use DCN\User;
 use DCN\Role;
+use Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -62,11 +71,14 @@ class ApiUserController extends Controller {
              * Were going to just create users at will
              */
             $user = User::create($request->except('status','status_ts'));
+            Event::fire(new UserCreated($user));
+
             /*
              * Because all users are members Lets assign that role.
              */
             $role=Role::where('slug','member')->first();
             $user->attachRole($role);
+
             /*
              * Anything additional needs permissions....
              */
@@ -167,25 +179,29 @@ class ApiUserController extends Controller {
                 if (Auth::user()->can('user.lock|user.unlock|user.ban|user.unban')) {
                     switch ($request->only('status')) {
                         case "locked":
-                            if ($user->status != "locked" && Auth::user()->can('user.lock'))
+                            if ($user->status != "locked" && Auth::user()->can('user.lock')) {
                                 $user->update(['status' => $request->input('status')]);
-                            else
+                                Event::fire(new UserLocked($user));
+                            } else
                                 $errors[] = "No Permission to Lock User";
                             break;
                         case "banned":
-                            if ($user->status != "banned" && Auth::user()->can('user.ban'))
+                            if ($user->status != "banned" && Auth::user()->can('user.ban')){
                                 $user->update(['status' => $request->input('status')]);
-                            else
+                                Event::fire(new UserBanned($user));
+                            }else
                                 $errors[] = "No Permission to Ban User";
                             break;
                         default:
                             $status = $request->input('status');
                             if (isset($status)) {
-                                if ($user->status == "locked" && Auth::user()->can('user.unlock'))
+                                if ($user->status == "locked" && Auth::user()->can('user.unlock')) {
                                     $user->update(['status' => $request->input('status')]);
-                                elseif ($user->status == "locked" && Auth::user()->can('user.unban'))
+                                    Event::fire(new UserUnlocked($user));
+                                } elseif ($user->status == "locked" && Auth::user()->can('user.unban')){
                                     $user->update(['status' => $request->input('status')]);
-                                else
+                                    Event::fire(new UserUnbanned($user));
+                                }else
                                     $errors[] = "No Permission to Unlock or Unban User";
                             }
                             break;
@@ -193,12 +209,15 @@ class ApiUserController extends Controller {
                 } elseif ($user->status != $request->only('status')) {
                     $errors[] = "No Permission to Update User Status!";
                 }
+
                 /*
                 * If the current user has the User Reset Permission Update The Users Password
+                 * Or if the user is updating their own password.
                 */
-                if (Auth::user()->can('user.reset')) {
+                if (Auth::user()->allowed('user.reset',$user,true,'id') || Auth::user()->can('user.reset')) {
                     if (!is_null($request->input('password')) && $request->input('password') !== '') {
                         $user->update(['password' => $request->input('password')]);
+                        Event::fire(new UserPasswordChanged($user));
                     }
                 } else {
                     if (!is_null($request->input('password')) && $request->input('password') !== '') {
@@ -281,7 +300,7 @@ class ApiUserController extends Controller {
             }else{
                 $errors[] = "No Permission to Edit This User";
             }
-
+            Event::fire(new UserEdited($user));
             return Response::json(array(
                 'success' => true,
                 'user'   => $user,
@@ -309,13 +328,14 @@ class ApiUserController extends Controller {
         try{
             if(Auth::user()->can('user.delete')){
                 $user->delete();
+                Event::fire(new UserDeleted($user));
                 return Response::json(array(
                     'completed' => true
                 ));
             }else{
                 return Response::json(array(
                     'success' => false,
-                    'errors'   => ['Not Authorized to delete users']
+                    'error'   => ['Not Authorized to delete users']
                 ));
             }
         }
