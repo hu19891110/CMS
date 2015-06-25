@@ -67,7 +67,6 @@ class AuthController extends Controller {
      */
     public function getRegister()
     {
-        $roles = Role::all()->groupBy('level');
         return view('auth.register',compact('roles'));
     }
 
