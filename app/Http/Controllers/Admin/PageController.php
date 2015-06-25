@@ -1,11 +1,11 @@
 <?php namespace DCN\Http\Controllers\Admin;
 
-use App;
 use Auth;
 use DCN\Page;
 use DCN\Http\Requests;
 use DCN\Http\Controllers\Controller;
 
+use DCN\RBAC\Exceptions\PermissionDeniedException;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -34,7 +34,7 @@ class PageController extends Controller
     {
         if($page->system)
             if(!Auth::user()->can('page.system'))
-                App::abort(403,"No Permission to edit system pages");
+                throw new PermissionDeniedException('page.system');
         return view('backend.page.edit',compact('page'));
     }
 
@@ -42,7 +42,7 @@ class PageController extends Controller
     {
         if($page->system)
             if(!Auth::user()->can('page.system'))
-                App::abort(403,"No Permission to edit system pages");
+                throw new PermissionDeniedException('page.system');
         return view('backend.page.editInline',compact('page'));
     }
 
