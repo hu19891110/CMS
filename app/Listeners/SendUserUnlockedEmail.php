@@ -28,6 +28,9 @@ class SendUserUnlockedEmails implements ShouldQueue
      */
     public function handle(UserUnlocked $event)
     {
-        //
+        $user = $event->user;
+        Mail::send('emails.user.unlocked', ['user' => $user], function ($m) use ($user) {
+            $m->to($user->email, $user->name_full)->subject('You\'r account has been unlocked!');
+        });
     }
 }

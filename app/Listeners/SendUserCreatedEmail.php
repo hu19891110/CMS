@@ -28,6 +28,9 @@ class SendUserCreatedEmails implements ShouldQueue
      */
     public function handle(UserCreated $event)
     {
-        //
+        $user = $event->user;
+        Mail::send('emails.user.created', ['user' => $user], function ($m) use ($user) {
+            $m->to($user->email, $user->name_full)->subject('You\'r account  has been created!');
+        });
     }
 }

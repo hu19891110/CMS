@@ -28,6 +28,9 @@ class SendUserDeletedEmails implements ShouldQueue
      */
     public function handle(UserDeleted $event)
     {
-        //
+        $user = $event->user;
+        Mail::send('emails.user.deleted', ['user' => $user], function ($m) use ($user) {
+            $m->to($user->email, $user->name_full)->subject('You\'r account has been deleted!');
+        });
     }
 }

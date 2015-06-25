@@ -39,7 +39,7 @@ class Page extends Node implements SluggableInterface
      */
     protected $dontKeepRevisionOf = ['updater_id', 'parent_id', 'lft', 'rgt', 'depth'];
 
-    public function Owner()
+    public function owner()
     {
         return $this->belongsTo('\Dcn\User');
     }
@@ -49,7 +49,7 @@ class Page extends Node implements SluggableInterface
         return $this->owner->username;
     }
 
-    public function Creator()
+    public function creator()
     {
         return $this->belongsTo('\Dcn\User');
     }
@@ -59,7 +59,7 @@ class Page extends Node implements SluggableInterface
         return $this->creator->username;
     }
 
-    public function Updater()
+    public function updater()
     {
         return $this->belongsTo('\Dcn\User');
     }

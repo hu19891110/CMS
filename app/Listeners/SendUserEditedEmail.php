@@ -28,6 +28,10 @@ class SendUserEditedEmails implements ShouldQueue
      */
     public function handle(UserEdited $event)
     {
-        //
+        $user = $event->user;
+        //TODO: Check was was edited. If roles/permissions, don't sent.
+        Mail::send('emails.user.edited', ['user' => $user], function ($m) use ($user) {
+            $m->to($user->email, $user->name_full)->subject('You\'r account has been edited!');
+        });
     }
 }

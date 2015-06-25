@@ -28,6 +28,9 @@ class SendUserBannedEmails implements ShouldQueue
      */
     public function handle(UserBanned $event)
     {
-        //
+        $user = $event->user;
+        Mail::send('emails.user.banned', ['user' => $user], function ($m) use ($user) {
+            $m->to($user->email, $user->name_full)->subject('You\'r account has been banned!');
+        });
     }
 }

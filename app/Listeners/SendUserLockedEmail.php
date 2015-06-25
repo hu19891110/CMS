@@ -28,6 +28,9 @@ class SendUserLockedEmails implements ShouldQueue
      */
     public function handle(UserLocked $event)
     {
-        //
+        $user = $event->user;
+        Mail::send('emails.user.locked', ['user' => $user], function ($m) use ($user) {
+            $m->to($user->email, $user->name_full)->subject('You\'r account has been locked!');
+        });
     }
 }

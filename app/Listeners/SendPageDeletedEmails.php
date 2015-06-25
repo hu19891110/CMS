@@ -28,6 +28,12 @@ class SendPageDeletedEmails implements ShouldQueue
      */
     public function handle(PageDeleted $event)
     {
-        //
+        $page = $event->page;
+        Mail::send('emails.page.deleted', ['page' => $page], function ($m) use ($page) {
+            $m->to($page->owner->email, $page->owner->name_full)->subject('A page you own was deleted!');
+        });
+        Mail::send('emails.page.deleted', ['page' => $page], function ($m) use ($page) {
+            $m->to($page->creator->email, $page->creator->name_full)->subject('A page you created was deleted!');
+        });
     }
 }
