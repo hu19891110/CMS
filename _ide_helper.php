@@ -1524,7 +1524,11 @@ namespace {
         public static function viaRemember(){
             return \Illuminate\Auth\Guard::viaRemember();
         }
-        
+
+        public static function continueAttempt($only)
+        {
+        }
+
     }
 
 

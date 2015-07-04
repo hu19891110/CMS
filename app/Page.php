@@ -139,8 +139,8 @@ class Page extends Node implements SluggableInterface
     }
     public function save(array $options = array())
     {
-        $user = Auth::user();
-        $this->Updater()->associate($user);
+        if(Auth::check())
+            $this->Updater()->associate(Auth::user());
         parent::save($options);
     }
 
@@ -150,7 +150,9 @@ class Page extends Node implements SluggableInterface
      */
     public static function create(array $attributes = array())
     {
-        $attributes = array_merge($attributes, ['creator_id'=>Auth::user()->id]);
+        if(Auth::check())
+            $attributes = array_merge($attributes, ['creator_id'=>Auth::user()->id]);
+
         return parent::create($attributes);
     }
 }

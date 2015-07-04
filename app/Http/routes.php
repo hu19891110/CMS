@@ -176,6 +176,19 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin', 'middleware' => 'role:root
     });
 });
 
+
+Route::get('/test/auth',function(){
+    return view('testAuth');
+});
+Route::post('/test/auth',function(){
+    if(Auth::continueAttempt(Input::only('test'))) {
+        return redirect()->intended('/');
+    } else {
+        die("DIDN'T Auth");
+    }
+});
+
+
 /*
  * Layout Routes
  */

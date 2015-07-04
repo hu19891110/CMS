@@ -26,6 +26,7 @@ use DCN\Listeners\SendUserLockedEmails;
 use DCN\Listeners\SendUserPasswordChangedEmails;
 use DCN\Listeners\SendUserUnbannedEmails;
 use DCN\Listeners\SendUserUnlockedEmails;
+use DCN\Listeners\YubiKeyAuth;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -76,6 +77,9 @@ class EventServiceProvider extends ServiceProvider {
         UserUnlocked::class => [
             SendUserUnlockedEmails::class,
         ],
+        'auth.login' => [
+            YubiKeyAuth::class
+        ]
 	];
 
 	/**

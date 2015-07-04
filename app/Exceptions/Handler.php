@@ -12,7 +12,8 @@ class Handler extends ExceptionHandler {
 	 * @var array
 	 */
 	protected $dontReport = [
-		'Symfony\Component\HttpKernel\Exception\HttpException'
+		'Symfony\Component\HttpKernel\Exception\HttpException',
+        '\DCN\RBAC\Exceptions\RoleDeniedException'
 	];
 
 	/**
@@ -39,7 +40,17 @@ class Handler extends ExceptionHandler {
 	{
         if ($e instanceof AccessDeniedException) {
             // you can for example flash message, redirect...
-            return redirect('/')->withErrors('Access Denied');;
+            return redirect('/')->withErrors('Access Denied');
+        }
+
+        if($e instanceof \DCN\RBAC\Exceptions\RoleDeniedException) {
+            // you can for example flash message, redirect...
+            return redirect()->guest(route('auth.login'))->withErrors('You don\'t have the required Role.');
+        }
+
+        if($e instanceof \DCN\RBAC\Exceptions\PermissionDeniedException) {
+            // you can for example flash message, redirect...
+            return redirect()->guest(route('auth.login'))->withErrors('You don\'t have the required Permission.');
         }
 
 		return parent::render($request, $e);

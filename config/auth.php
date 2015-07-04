@@ -64,4 +64,11 @@ return [
 		'expire' => 60,
 	],
 
+    /*
+     * We'll leave this here for now.... It will throw an error in the future hopefully
+     */
+    'authenticators' => [
+        Illuminate\Auth\Authenticators\ExampleAuthenticator::class,
+    ]
+
 ];
